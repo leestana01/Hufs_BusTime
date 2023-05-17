@@ -46,3 +46,9 @@ for bus_number, times in bus_times.items():
         hour, minute = map(int, time_str.split(':'))
         bus = BusList(bus_number=bus_number, bus_time=time(hour, minute), day_type=day)
         bus.save()
+
+from UpBus.models import Bus
+Bus(number=1005, routeId=234000065, staOrder=137).save()
+Bus(number=1117, routeId=234000069, staOrder=114).save()
+Bus(number=1150, routeId=234000882, staOrder=116).save()
+Bus(number=1303, routeId=234000130, staOrder=150).save()
