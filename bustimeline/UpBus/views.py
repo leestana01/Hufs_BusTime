@@ -5,10 +5,30 @@ from .models import Bus
 import requests
 from bs4 import BeautifulSoup
 
+from django.conf import settings
+
 def bus_arrival(request):
+    busInfo = APICaller(228000351) 
+    # api를 호출하여 해당 정류장의 버스 정보를 받아옵니다.
+    # stationId는 Misc 폴더의 버스정류장.txt 파일을 참고하세요
+    return render(request, 'bus_list_up.html', {'results': busInfo})
+
+
+
+
+
+# -----------------------------------------------------------------
+# 일반 함수 호출 영역입니다
+
+
+# API를 호출하는 함수. 아래와 같은 형식으로 반환함
+# { 
+#   버스번호1:{location:몇정거장전? , predict_time:예상시간?},
+#   버스번호2:{location:몇정거장전? , predict_time:예상시간?},
+#  } 
+def APICaller(stationId):
     buses = Bus.objects.all()
-    stationId = '228000351'
-    serviceKey = 'NtJsRbGCOEUzaVWZV0YH%2BohG0HsEnbQsxLeHFL3y%2F1HHMeyRALLGqSGZs3qMMIFG%2FBoyQ8KBgfs29NRRsTwsOw%3D%3D'
+    serviceKey = settings.SERVICE_KEY
     base_url = f'http://apis.data.go.kr/6410000/busarrivalservice/getBusArrivalItem?serviceKey={serviceKey}'
 
     results = {}
@@ -19,16 +39,7 @@ def bus_arrival(request):
             'staOrder': bus.staOrder
         }
         response = requests.get(base_url, params=params)
-        print(response.request.url)
-        print('------------------------------------')
-        print(response.content)
-        print('------------------------------------')
         soup = BeautifulSoup(response.content, 'xml')
-        locationNo1_tag = soup.find('locationNo1')
-        print(locationNo1_tag)
-        print('------------------------------------')
-        print('------------------------------------')
-        # return HttpResponse(response.content)
 
         try:
             locationNo1 = soup.find('locationNo1').text
@@ -38,5 +49,9 @@ def bus_arrival(request):
             locationNo1 = 'N/A'
             predictTime1 = 'N/A'
         results[bus.number] = {'location': locationNo1, 'predict_time': predictTime1}
+        # location      : 몇 번째 전?
+        # predict_time  : 예상 시간
+    return results
 
-    return render(request, 'bus_list_up.html', {'results': results})
+
+
