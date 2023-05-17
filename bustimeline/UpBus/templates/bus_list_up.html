@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>상행 버스 도착시간</h1>
+    <h3>모현지석묘입구 기준</h3>
+    <table style="text-align:center">
+        <tr>
+            <th>버스번호</th>
+            <th>위치</th>
+            <th>도착예정</th>
+        </tr>
+        {% for bus, info in results.items %}
+        <tr>
+            <td>{{ bus }}</td>
+            <td>{{ info.location }}번째전</td>
+            <td>{{ info.predict_time }}분 뒤</td>
+        </tr>
+        {% endfor %}
+    </table>    
+</body>
+</html>

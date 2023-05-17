@@ -1,4 +1,5 @@
 from django.shortcuts import render
+
 from .models import BusList, NowDay
 from datetime import datetime
 
