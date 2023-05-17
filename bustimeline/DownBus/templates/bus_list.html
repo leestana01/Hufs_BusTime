@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>버스언제와 _ 상행버스</title>
+    <title>버스언제와 _ 하행버스</title>
     <style>
         body {
             padding: 10px;
@@ -23,7 +23,6 @@
         table {
             width: 100%;
             border: 2px solid #21456D;
-            border-radius: 10px;
             border-collapse: collapse;
         }
 
@@ -40,7 +39,8 @@
 </head>
 <body>
     <h1 id="title" onclick="location.href='/'">버스 언제와</h1>
-    <h3>파란지붕 기준으로<br/>모사행 버스들을 알려드릴게요!</h3>
+    <h3>파란지붕 기준으로, 가장 빨리 출발할<br/>모사행 버스들을 알려드릴게요!</h3>
+    <p>기준 시간 : {{ now_time }}</p>
     <table>
         <thead>
             <tr>
