@@ -15,3 +15,6 @@ def busListView(request):
 
     buses = BusList.objects.filter(day_type=day_type)
     return render(request, 'bus_list.html', {'buses': buses})
+
+def mainPage(request):
+    return render(request, 'mainpage.html')

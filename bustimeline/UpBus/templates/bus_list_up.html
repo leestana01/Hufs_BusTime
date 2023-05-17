@@ -2,17 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>버스언제와 _ 상행버스</title>
+    <style>
+        body {
+            padding: 10px;
+        }
+
+        #title {
+            color: #B49775;
+            font-size: 2em;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        h1, h3 {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border: 2px solid #21456D;
+            border-radius: 10px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #21456D;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #578ABE;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-    <h1>상행 버스 도착시간</h1>
-    <h3>모현지석묘입구 기준</h3>
-    <table style="text-align:center">
+    <h1 id="title" onclick="location.href='/'">버스 언제와</h1>
+    <h3>모현지석묘입구 기준으로<br/>외대행 버스들을 알려드릴게요!</h3>
+    <table>
         <tr>
             <th>버스번호</th>
-            <th>위치</th>
+            <th>남은 정류장</th>
             <th>도착예정</th>
         </tr>
         {% for bus, info in results.items %}
