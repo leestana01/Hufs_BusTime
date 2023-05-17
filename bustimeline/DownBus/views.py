@@ -14,7 +14,7 @@ def busListView(request):
     else:  # 일요일
         day_type = NowDay.objects.get(day_type='SUN')
 
-    buses = BusList.objects.filter(day_type=day_type, bus_time__gte=now_time)
+    buses = BusList.objects.filter(day_type=day_type, bus_time__gte=now_time).order_by('bus_time')
     formatted_time = now_time.strftime("%H시 %M분")
     return render(request, 'bus_list.html', {'buses': buses, 'now_time' : formatted_time})
 
