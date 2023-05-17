@@ -11,10 +11,18 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from environ import Env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = Env()
+# env_path = BASE_DIR / ".env"
+# if env_path.exists():
+#     with env_path.open("rt", encoding="utf8") as f:
+#         env.read_env(f, overwrite=True)
+env.read_env()
+SERVICE_KEY = env('SERVICE_KEY')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
