@@ -10,10 +10,8 @@ from django.conf import settings
 def bus_arrival(request):
     busInfo = APICaller(228000351) 
     # api를 호출하여 해당 정류장의 버스 정보를 받아옵니다.
-    # stationId 참고
-    # -> 모현사거리 입구 : '228000351'
+    # stationId는 Misc 폴더의 버스정류장.txt 파일을 참고하세요
     return render(request, 'bus_list_up.html', {'results': busInfo})
-
 
 
 
