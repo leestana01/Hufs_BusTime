@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>버스언제와 _ 하행버스</title>
+    <style>
+        body {
+            padding: 10px;
+        }
+
+        #title {
+            color: #B49775;
+            font-size: 2em;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        h1, h3 {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border: 2px solid #21456D;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #21456D;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #578ABE;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="title" onclick="location.href='/'">버스 언제와</h1>
+    <h3>파란지붕 기준으로, 가장 빨리 출발할<br/>모사행 버스들을 알려드릴게요!</h3>
+    <p>기준 시간 : {{ now_time }}</p>
+    <table>
+        <thead>
+            <tr>
+                <th>버스번호</th>
+                <th>출발시간</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for bus in buses %}
+                <tr>
+                    <td>{{ bus.bus_number }}</td>
+                    <td>{{ bus.bus_time }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="2">버스 정보가 없습니다.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+       
+</body>
+</html>

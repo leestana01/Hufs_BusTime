@@ -17,6 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from DownBus.views import busListView, mainPage
+from UpBus.views import bus_arrival
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('downbus/', busListView),
+    path('upbus/', bus_arrival),
+    path('', mainPage),
 ]
