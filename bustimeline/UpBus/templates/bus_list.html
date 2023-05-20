@@ -121,34 +121,42 @@
     }
 
   </style>
-  <script>
 
-    function getBusLocation(busNumber) {
-      const busLocations = JSON.parse('{{ bus_locations|safe }}');
-      return busLocations[busNumber] || '정보 없음';
-    }
-
-    function showBusLocations() {
-      const busNumbers1 = JSON.parse('{{ bus_numbers1|safe }}');
-      const busNumbers2 = JSON.parse('{{ bus_numbers2|safe }}');
-      const busStopId = '{{ bus_stop_id|safe }}';
-
-      busNumbers2.forEach((busNumber) => {
-        const busLocation = getBusLocation(busNumber);
-        displayBusLocation(busNumber, busLocation);
-      });
-    }
-
-    function displayBusLocation(busNumber, location) {
-      const busLocationElement = document.getElementById(`bus${busNumber}-number`);
-      if (busLocationElement) {
-        busLocationElement.textContent = location;
+<script>
+  // <내가 생각한 방법>
+//api caller에서 location값을 받아온다
+//흰 동그라미들(화면상의 정류장)에 id로 숫자 부여
+//예를 들어 하행 종점에서 2정거장 전이라면 기숙사이므로, 5-location=3, 즉 3번 동그라미(기숙사) 옆에
+//버스 번호를 띄우고자 했음
+  
+    // 버스 위치 정보를 가져와서 흰 동그라미 옆에 번호를 표시하는 함수
+    function showBusNumber(location, busNumber) {
+     if (location > 0) {
+       var circle = document.getElementById('circle' + location);
+       if (circle) {
+            circle.innerText = busNumber;
+            //일단 동그라미의 innerText에 bus number가 나오게 했는데, 번호를 어떻게 띄우냐의 문제는 일단 번호 띄우기를 성공시키고 나서
+            //생각해보기 위해 임시로 적러둔 코드임
+        }
       }
     }
-
-     document.addEventListener("DOMContentLoaded", function() {
-     showBusLocations();
-});
+  
+    // 버스 위치 정보 표시
+    var location_1303 = "{{ location_1303 }}";
+    var location_1117 = "{{ location_1117 }}";
+    var location_1150 = "{{ location_1150 }}";
+    var location_1005 = "{{ location_1005 }}";
+  
+    //하행
+    showBusNumber(5 - parseInt(location_1303), "1303");
+    showBusNumber(5 - parseInt(location_1117), "1117");
+    showBusNumber(5 - parseInt(location_1150), "1150");
+    showBusNumber(5 - parseInt(location_1005), "1005");
+    //상행
+    showBusNumber(9 - parseInt(location_1303), "1303");
+    showBusNumber(9 - parseInt(location_1117), "1117");
+    showBusNumber(9 - parseInt(location_1150), "1150");
+    showBusNumber(9 - parseInt(location_1005), "1005");
   </script>
 </head>
 <body>
@@ -218,4 +226,3 @@
 
 </body>
 </html>
-
