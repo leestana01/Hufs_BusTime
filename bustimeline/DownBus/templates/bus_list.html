@@ -1,66 +1,221 @@
+<!--'실시간 버스 위치 보기' 버튼을 눌렀을 때 나오는 실시간 버스 위치를 표시하는 페이지입니다-->
+<!--몇번 버스가 어느 정류장에 도착한 상태인지 알 수 있습니다-->
+<!--api 연동하여 버스 번호가 표시됩니다-->
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>버스언제와 _ 하행버스</title>
-    <style>
-        body {
-            padding: 10px;
-        }
+  <title>실시간 버스 위치</title>
+  <style>
+    #main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
 
-        #title {
-            color: #B49775;
-            font-size: 2em;
-            margin-bottom: 20px;
-            cursor: pointer;
-        }
+#container {
+    display: flex;
+  }
 
-        h1, h3 {
-            text-align: center;
-        }
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .red-line {
+    position: relative;
+    width: 20px;
+    height: 750px;
+    background-color: red;
+  }
+  
+  .rectangle {
+    position: relative;
+    width: 150px;
+    height: 50px;
+    border-radius: 25px;
+    border: 2px solid red;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+  }
+  
+  .text {
+    font-size: 13px;
+  }
 
-        table {
-            width: 100%;
-            border: 2px solid #21456D;
-            border-collapse: collapse;
-        }
+  .circle-container {
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid red;
+    background-color: white;
+    margin: 60px 0;
+  }
 
-        th, td {
-            border: 1px solid #21456D;
-            padding: 10px;
-        }
+  .likeEmpty {
+    width: 10px;
+    height: 30px;
+    border: 2px solid red;
+    margin: 60px 0;
+  }
 
-        th {
-            background-color: #578ABE;
-            color: white;
-        }
-    </style>
+  .word-container {
+    position: absolute;
+    top: 14%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .word {
+    font-size: 14px;
+    margin: 65px 0;
+  }
+
+  .text-container p {
+    margin: 5px 0;
+  }
+  
+  .bus-stop {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .bus-arrival {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    background-color: white;
+    color: red;
+    margin-left: 5px;
+  } 
+
+  .bus-number {
+      font-size: 18px;
+      margin-top: 5px;
+    }
+
+  </style>
+  <script>
+
+    function getBusLocation(busNumber) {
+      const busLocations = JSON.parse('{{ bus_locations|safe }}');
+      return busLocations[busNumber] || '정보 없음';
+    }
+
+    function showBusLocations() {
+      const busNumbers1 = JSON.parse('{{ bus_numbers1|safe }}');
+      const busNumbers2 = JSON.parse('{{ bus_numbers2|safe }}');
+      const busStopId = '{{ bus_stop_id|safe }}';
+
+      busNumbers2.forEach((busNumber) => {
+        const busLocation = getBusLocation(busNumber);
+        displayBusLocation(busNumber, busLocation);
+      });
+    }
+
+    function displayBusLocation(busNumber, location) {
+      const busLocationElement = document.getElementById(`bus${busNumber}-number`);
+      if (busLocationElement) {
+        busLocationElement.textContent = location;
+      }
+    }
+
+     document.addEventListener("DOMContentLoaded", function() {
+     showBusLocations();
+});
+  </script>
 </head>
 <body>
-    <h1 id="title" onclick="location.href='/'">버스 언제와</h1>
-    <h3>파란지붕 기준으로, 가장 빨리 출발할<br/>모사행 버스들을 알려드릴게요!</h3>
-    <p>기준 시간 : {{ now_time }}</p>
-    <table>
-        <thead>
-            <tr>
-                <th>버스번호</th>
-                <th>출발시간</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for bus in buses %}
-                <tr>
-                    <td>{{ bus.bus_number }}</td>
-                    <td>{{ bus.bus_time }}</td>
-                </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="2">버스 정보가 없습니다.</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-       
+  <div id="main-container">
+  <div id="container">
+      <div id="container1" class="container">
+        <div class="column">
+          <div class="rectangle">
+              <p class="text">하행버스</p>
+            </div>
+          <div class="red-line">
+            
+          <div class="circle-container">
+              <div class="circle">
+                
+              </div>
+              <div class="likeEmpty">
+              </div>
+              <div class="circle">
+                
+              </div>
+              <div class="circle">
+                
+              </div>
+              <div class="circle">
+                
+              </div>
+              
+            </div>
+        </div>
+        <div class="word-container">
+          <p class="word bus-stop">파란지붕</p>
+          <p class="word bus-stop">도서관</p>
+          <p class="word bus-stop">기숙사</p>
+          <p class="word bus-stop">모현 사거리</p>
+          <p class="word bus-stop">외대 사거리</p>
+        </div>
+
+      </div>
+      </div>
+  
+      <div id="container2" class="container">
+        <div class="column">
+          <div class="rectangle">
+              <p class="text">상행버스</p>
+            </div>
+          <div class="red-line">
+          <div class="circle-container">
+              <div class="circle">
+              </div>
+              <div class="circle">
+              </div>
+              <div class="circle">
+              </div>
+              <div class="circle">
+              </div>
+              <div class="circle">
+              </div>
+            </div>
+            
+        </div>
+        
+        </div>
+      </div>
+    </div>
+    </div>
+
 </body>
 </html>
+
