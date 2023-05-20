@@ -22,12 +22,12 @@ from django.conf.urls.static import static
 
 from DownBus import views
 from DownBus.views import mainPage
-from DownBus.views import bus_list
-from UpBus.views import bus_list_up
+from DownBus.views import bus_list_up
+from UpBus.views import bus_list
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('bus-list/', views.bus_list, name='bus_list'),
+    path('bus-list/', bus_list, name='bus_list'),
     path('', mainPage, name='main_page'),
     path('bus-list-up/', bus_list_up, name='bus_list_up'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

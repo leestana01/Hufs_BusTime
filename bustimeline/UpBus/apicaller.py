@@ -1,3 +1,9 @@
+import requests
+from django.conf import settings
+from bs4 import BeautifulSoup
+from .models import Bus
+
+
 # API를 호출하는 함수. 아래와 같은 형식으로 반환함
 # { 
 #   버스번호1:{location:몇정거장전? , predict_time:예상시간?},
