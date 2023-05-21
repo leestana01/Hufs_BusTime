@@ -6,262 +6,203 @@
   <!--실시간 위치가 아니라, 발표되는 빨버 시간표의 내용을 화면으로 확인하는 페이지입니다-->
   <!--'현재 시간 이후로 보기' 버튼 클릭 시 현재 시간으로 스크롤이 이동하여 더 편한 ux 제공이 가능합니다-->
   <!--api가 아닌 6팀의 버스 시간표 DB와 연동해 평일, 토요일, 일요일마다 버스 시간표가 달라집니다-->
-  
   <style>
     #main-container {
         display: flex;
         justify-content: center;
         align-items: center;
         min-height: 100vh;
-      }
-    
+    }
+
     #container {
         display: flex;
-      }
-    
+    }
+
     .container {
         display: flex;
         flex-direction: column;
         align-items: center;
-      }
+    }
       
-      .column {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        min-height: 100vh;
-      }
-      
-      .red-line {
-        position: relative;
-        width: 20px;
-        min-height: 4000px;
-        background-color: red;
-        
-      }
-      
-      .rectangle {
-        position: relative;
-        width: 150px;
-        height: 50px;
-        border-radius: 25px;
-        border: 2px solid red;
-        background-color: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0px;
-      }
-    
-      .word-container {
-        position: absolute;
-        top: 16%;
-        left: 48%;
-        transform: translateX(-50%);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-      
-      .word {
-        font-size: 14px;
-        margin: 10px 0;
-      }
-      
-      .text {
-        font-size: 13px;
-      }
-    
-      .circle-container {
-        position: absolute;
-        top: 0%;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      
-      .circle {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        border: 2px solid red;
-        background-color: white;
-        margin: 100px 0;
-      }
-    
-    
-      .time {
-          font-size: 18px;
-          margin-top: 5px;
-        }
+    .column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    }
+
+    .red-line {
+    position: relative;
+    width: 20px;
+    height: 100%;
+    background-color: red;
+
+    }
+
+    .rectangle {
+    position: relative;
+    width: 150px;
+    height: 50px;
+    border-radius: 25px;
+    border: 2px solid red;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+    }
+
+    .word-container {
+    position: absolute;
+    top: 16%;
+    left: 48%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
+
+    .word {
+    font-size: 14px;
+    margin: 10px 0;
+    }
+
+    .text {
+    font-size: 13px;
+    }
+
+    .circle-container {
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    }
+
+    .circle0800, .circle0900, .circle1000, .circle1100, .circle1200, .circle1300, .circle1400, .circle1500, .circle1600, .circle1700, .circle1800, .circle1900, .circle2000, .circle2100, .circle2200, .circle2300, .circle2400 {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid red;
+    background-color: white;
+    top: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+    }
 
 
-    
-      </style>
-  <script>
-      document.addEventListener("DOMContentLoaded", function() {
-      var wordContainer = document.querySelector(".word-container");
-      
+    .time {
+        font-size: 18px;
+        margin-top: 5px;
+    }
 
-      // 시간표 데이터(테스트용, 임시)
-      //오늘이 무슨 요일인지에 대한 고려도 함깨 해야한다
-    var timeRanges = {
-      1117: ["08:15", "08:40", "09:05", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30",
-      "13:30", "14:00", "14:30", "15:00", "15:30", "15:55", "16:20", "16:45", "17:10", "17:30", "17:50", "18:10", "18:40", "19:10", "19:40", "20:10", "20:40", "21:10", "21:40", "22:05", "22:30", "22:45"],
-      1005: ["08:30", "09:30", "10:30", "11:30", "12:30", "13:20", "14:20", "15:20", "16:20", "17:20", "18:25", "19:30", "20:30", "21:30", "22:30"],
-      1150: ["08:10", "08:35", "09:00", "09:25", "09:50", "10:15", "10:40", "11:05", "11:30", "11:55", "12:20", "12:40", "13:05", "13:30", "13:55", "14:20", "14:45", "15:10", "15:35", "16:00", "16:25", "16:50", "17:10", "17:35", "18:00", "18:25", "18:50", "19:15", "19:40", "20:05", "20:30", "20:55", "21:20", "21:45", "22:10", "22:30"],
-      1303: ["09:30", "10:20", "11:10", "12:00", "12:50", "13:40", "14:30", "15:20", "16:10", "17:00", "17:50", "18:40", "19:30", "20:20", "21:10", "22:00"]
-      
-    };
+    .bus-div-style {
+        font-size: 18px;
+        background-color: yellow;
+        padding: 5px;
+        margin: 5px 10px; /* 여백 조정 */
+        border-radius: 5px; /* 둥근 모서리 적용 */
+        border: 3px solid black; /* 검은색 테두리 적용 */
+    }
 
-    //버스 번호 key로 얻어오기
-    var busNumbers = Object.keys(timeRanges);
-
-
-      //8:00부터 23:00까지 10분 간격으로 시간을 생성하도록 반복문 만듦
-      for (var hour = 8; hour <= 23; hour++) {
-        for (var minute = 0; minute <= 50; minute += 10) {
-          var time = padNumber(hour) + ":" + padNumber(minute);
-          createWord(time, wordContainer);
-        }
-      }
-
-
-
-      //숫자를 2자리로 패딩하는 함수
-      function padNumber(number) {
-        return number.toString().padStart(2, "0");
-      }
-
-
-      //단어 요소를 생성하는 함수
-      //이 함수는 건드리지 말자
-      function createWord(time, container) {
-        var word = document.createElement("div");
-        word.className = "word";
-        word.textContent = time;
-        container.appendChild(word);
-
-        // 반복문으로 생성한 시간과 버스시간표를 체크하며, 시간표에 버스 번호를 끼워넣는 부분
-        //word container 옆에 생성하기 위해 잠시 주석처리
-        //너무 오류난다,, 내일하자 짱피곤
-
-        //for (var i = 0; i < busNumbers.length; i++) {
-            //var busNumber = busNumbers[i];
-            //var busTimes = timeRanges[busNumber];
-          //if (busTimes.includes(time)) {
-               //var busNumberElement = document.createElement("div");
-                 // busNumberElement.className = "bus-number";
-                 // busNumberElement.textContent = busNumber;
-                 // word.appendChild(busNumberElement)
-  }
-
-      
-
-      //'현재 시각부터 버스 보기' 버튼 생성
-      //버튼을 누르먄 현재 시간과 그 이후의 부분을 편하게 볼 수 았게 스크롤이 슈슈슈슉 내려감
-
-      var scrollButton = document.createElement("button");
-      scrollButton.textContent = "현재 시각부터 버스 보기";
-      scrollButton.addEventListener("click", scrollToCurrentTime); //버튼 누르면 스크롤 내려가도록
-
-      //버튼을 상단 오른쪽에 배치할 거예요
-      scrollButton.style.position = "fixed";
-      scrollButton.style.top = "10px";
-      scrollButton.style.right = "10px";
-
-      document.body.appendChild(scrollButton);
-
-      //현재 시간이 있는 곳으로 스크롤 내려가기
-      //앗 왜안됨,,? ->됨!
-
-      function scrollToCurrentTime() {
-
-        //현재 시간을 나타내기 위한 Date 객체 생성
-        var now = new Date();
-        var currentHour = now.getHours(); //now에서 '시' 부분을 가져옴
-        var currentMinute = Math.floor(now.getMinutes() / 10) * 10; //now에서 '분' 부분을 가져옴
-        var currentTime = padNumber(currentHour) + ":" + padNumber(currentMinute); //시와 분을 문자열로 바꾸고 :로 나누어currentTime 변수에 저장
-
-        var words = document.querySelectorAll(".word"); //문서에서 클래스가 .word인 모든 요소를 찾아서 words 변수에 저장
-
-        //words에 있는 모든 요소를 순회하면서 textContent를 기준으로 현재 시간과 일치하는 요소(시간)를 찾음
-        //Array.form() 메서드가 words를 배열로 바꿔주는 것
-        var targetIndex = Array.from(words).findIndex(function(word) {
-          return word.textContent === currentTime;
-        });
-
-        //조건을 만족하는 경우 if문 실행
-        if (targetIndex >= 0) {
-          var targetWord = words[targetIndex]; //targetIndex 인덱스의 내용을 targetWord에 저장
-          var targetTop = targetWord.offsetTop; //targetWord 요소의 상단 위치를 픽셀 단위로 가져옴
-          var targetHeight = targetWord.offsetHeight; //요소의 높이를 픽셀 단위로 가져옴
-          var targetCenter = targetTop + targetHeight / 2; //요소의 중심 위치 계산
-          var containerCenter = window.innerHeight / 2; //브라우저 창의 세로 중앙 위치를 계산
-          var scrollOffset = targetCenter - containerCenter; //요소를 세로 중앙에 위치시키기 위해 스크롤 계산
-
-
-          //버튼 클릭 시 화면의 스크롤이 현재 시간으로 이동
-         window.scrollTo({
-         top: scrollOffset,
-         behavior: "smooth" // 부드러운 스크롤을 위해 behavior 속성 추가
-
-          });
-
-        }
-      }
-
-    });
-
-        
-
-     
-    //여기서부터 다른 함수 시작!!
-
-    document.addEventListener("DOMContentLoaded", function() {
-      var circleContainer = document.querySelector(".circle-container");
-
-      //17개의 circle 요소 생성
-      for (var i = 0; i < 16; i++) {
-        createCircle();
-      }
-
-      //circle 요소를 생성하는 함수
-      function createCircle() {
-        var circle = document.createElement("div");
-        circle.className = "circle";
-        circleContainer.appendChild(circle);
-      }
-    });
-
-  </script>
-
+    .scroll-button {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    }
+  </style>
 </head>
 <body>
   <div id="main-container">
+    <button class="scroll-button" onclick="scrollToCurrentTime()">현재 시간으로 이동</button>
     <div id="container">
       <div id="container1" class="container">
         <div class="column">
           <div class="rectangle">
             <p class="text">오늘의 버스는?</p>
           </div>
-          <div class="red-line">
-            <div class="circle-container">
-              <div class="circle"></div>
+        
+
+          <!--view에서 시간/버스 리스트를 받아오는 부분-->
+          <!--만약 버스가 없으면 값을 아예 주지 않겠다고 함 -> list보다는 index로 가기로 함 -->
+          <div>
+            <!--busInfo라는 인덱스. 여기서 busInfo.0을 하면 0번째 요소인 bustime이 되고, busInfo.1을 하면 1번째 요소인 buslist가 된다-->
+            {% for busInfo in timeList %}
+            <div style="display: flex; gap: 10px; height: 50px; margin-left: 200px;" id="big DIV">
+
+            <!--bustime을 먼저(맨 왼쪽에) 표시한다-->
+
+
+            <!--<div id="formatted-time"></div>-->
+
+            <div id="time_{{busInfo.0}}">{{ busInfo.0 }}</div>
+
+            <!--빨간 선을 반복생성하는 부분-->
+            <div class="red-line">
+
+                    <!--만약 지금 시간이 정각이면, 빨간 선 위에 흰색 동그라미를 올린다(redline + circle(absolute))-->
+                    
+                    <div class="red-line">
+                          <div class="circle{{ busInfo.0 }}"></div>
+                    </div>
+                    
+
+              </div> <!--여기까지 red-line의 div-->
+
+              <!--만약 해당 시간(bustime)에 일치하는 버스(buslist)가 있으면, 옆에 div를 띄움(가장 오른쪽 요소, busInfo.1)-->
+
+            <!--<div>{{ busInfo.1 }}-->
+
+                   <!--busInfo.1(버스 리스트)에 해당하는 버스를 모두 div로 시간 옆에 나열하기 위해, 반복문-->
+                    {% for busDiv in busInfo.1 %}
+                    <div style="display:flex">
+                      <span class="bus-div-style">{{ busDiv }}</span>
+                    </div>
+
+                    {% endfor %}
+            <!--</div>여기까지 busInfo.1의 div-->
+
             </div>
-          </div>
-          <div class="word-container">
-            <p class="word"></p>
-          </div>
+            {% endfor %}
+            </div>
+
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    
+  function scrollToCurrentTime() {
+    // 현재 시간을 확인합니다.
+    let now = new Date();
+    let hour = now.getHours();
+    let minute = now.getMinutes();
+
+    // 해당 시간의 id를 계산합니다.
+    let timeId = 'time_' + timeToString(hour) + timeToString(minute);
+    // 해당 위치로 스크롤합니다.
+    let element = document.getElementById(timeId);
+    while (!element && hour < 24){
+      minute += 1;
+      if (minute >= 60){
+        minute = 0
+        hour += 1;
+      }
+      timeId = 'time_' + timeToString(hour) + timeToString(minute);
+      element = document.getElementById(timeId);
+    }
+    if (element) {  // 해당 시간의 요소가 존재하는 경우에만 스크롤
+        element.scrollIntoView({behavior:"smooth"});
+    }
+  }
+
+  function timeToString(hour){
+    return String(hour).padStart(2, '0');
+  }
   </script>
+
 </body>
 </html>
