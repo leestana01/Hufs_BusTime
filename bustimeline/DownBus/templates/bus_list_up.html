@@ -13,6 +13,7 @@
         justify-content: center;
         align-items: center;
         min-height: 100vh;
+        font-family: 'Main', sans-serif;
     }
 
     #container {
@@ -31,12 +32,23 @@
     align-items: center;
     }
 
+    .red-line-first {
+      width: 10px;
+      height: 50px;
+      margin-top: -30px;
+      margin-left:10px;
+      border-top: 10px solid red;
+      border-left: 10px solid red;
+      /* border-bottom: 10px solid red;
+      border-right: 10px solid red; */
+      border-top-left-radius: 20px;
+    }
+
     .red-line {
     position: relative;
     width: 10px;
     height: 100%;
     background-color: red;
-
     }
 
     .rectangle {
@@ -91,9 +103,10 @@
 
 
     .time {
-        font-size: 18px;
         margin-top: 10px;
+        font-size: 18px;
         font-weight: bold;
+        font-family: 'Inter';
     }
 
     .bus-div-style {
@@ -106,10 +119,11 @@
     }
 
     .bus-div-nums {
-        font-size: 18px;
-        font-weight: bold;
         margin-top: 5px;
         margin-right: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        font-family: 'Inter';
     }
 
     .shine-button {
@@ -142,6 +156,20 @@
       }
     }
 
+    @font-face {
+      font-family: 'Main';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Inter';
+      src: url('https://fonts.googleapis.com/css2?family=Inter&display=swap') format('woff2');
+      font-weight: normal;
+      font-style: normal;
+    }
+
   </style>
 </head>
 <body>
@@ -160,8 +188,12 @@
           <!--만약 버스가 없으면 값을 아예 주지 않겠다고 함 -> list보다는 index로 가기로 함 -->
           <div>
             <!--busInfo라는 인덱스. 여기서 busInfo.0을 하면 0번째 요소인 bustime이 되고, busInfo.1을 하면 1번째 요소인 buslist가 된다-->
+            <div style="display: flex; height: 30px; width:350px;" class="bigDIV">
+              <div class="time" style="color:white">00:00</div>
+              <div class="red-line-first"></div>
+            </div>
             {% for busInfo in timeList %}
-            <div style="display: flex; gap: 10px; height: 50px; width:340px; margin-left: 150px;" class="bigDIV">
+            <div style="display: flex; gap: 10px; height: 50px; width:350px;" class="bigDIV">
 
               <!--bustime을 먼저(맨 왼쪽에) 표시한다-->
               
@@ -187,7 +219,7 @@
 
               <!--busInfo.1(버스 리스트)에 해당하는 버스를 모두 div로 시간 옆에 나열하기 위해, 반복문-->
               <div class="bus-div-style" style="display:flex">
-                <img src="/static/버스 이미지.png" style="object-fit: cover;">
+                <img src="/static/버스 이미지.png" style="width:50px;">
                 <div class="bus-div-nums">
                   {% for busDiv in busInfo.1 %}
                   <span>{{ busDiv }}</span>
