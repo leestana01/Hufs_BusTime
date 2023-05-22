@@ -18,7 +18,7 @@ def bus_list_up(request):
     for bus in Buses:
         hour = bus.bus_time.hour
         minute = bus.bus_time.minute
-        nowTime = str(hour).zfill(2) + str(minute).zfill(2)
+        nowTime = str(hour).zfill(2) + ":" + str(minute).zfill(2)
         buses_by_time[nowTime].append(str(bus.bus_number))
 
     timeListBefore = [[time, buses] for time, buses in buses_by_time.items()]
@@ -29,7 +29,7 @@ def bus_list_up(request):
         'timeList' : timeList ,
     }
 
-    return render(request, 'bus_list_up.html',{'timeList':timeList})
+    return render(request, 'bus_list_up.html',context)
 
 def mainPage(request):
     return render(request, 'mainPage.html')
