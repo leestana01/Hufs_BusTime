@@ -108,13 +108,17 @@
   }
   
   .bus-div-style {
-        font-size: 18px;
+        font-size: 15px;
         background-color: yellow;
         padding: 5px;
-        margin: 5px 10px; /* 여백 조정 */
+        margin: 5px 10px 0;  /* 여백 조정 */
         border-radius: 5px; /* 둥근 모서리 적용 */
         border: 3px solid black; /* 검은색 테두리 적용 */
         margin-bottom: 0;
+        width: 40px;
+        height: 15px;
+        
+        /*width랑 height 직접 지정하는 방식으로 여백 줄여보기 */
     }
 
     .bus-station {
@@ -145,40 +149,58 @@
         </div>
       </div> <!--container1 끝-->
 
-      <!--수정해야 할 것-->
-      <!--(1)버스 번호가 span에 뜨면 빨간선 div가 움직임-->
-      <!--(2)기존 '버스시간표'는 빨간 선 하나를 반복생성해서 수월했으나, 여기서는 전체적인 구조를 개편하면서-->
-      <!--(3)빨간 선을 일직선으로 맞추기 어렵게 되었음(container 안에서 div가 유동적으로 움직이는게 가장 큰 문제)-->
-      <!--(4)span의 여백을 없애고 디자인 요소를 추가해야함-->
 
-      <!--큰 구조 개편(버스 span을 띄우기 위한 구조적 개편)은 완료, 세부적인 수정 필요-->
+      <!--div 움직이는 문제 수정 완료, 버스 번호 이상 출력 해결 완료:: 이제 큰 문제는 없음-->
+
+      <!--수정해야 할 것-->
+      <!--버스 번호 띄우는 span 디테일한 디자인 반영하기(전체시간표의 span 디자인처럼?)-->
+      <!--(가능하다면) 빨간 선 중간중간 끊긴 부분 잇기(div 단위로 5개를 붙여둔거라서 어렵습니다,,)-->
+      
+
+      <div style="display:flex">
+
+      <div class="column" style="height: 100px; margin-left: 16px; margin-right: 15px;">
+        
+            <div class="red-line"></div>
+            <div class="red-line"></div>
+            <div class="red-line"></div>
+            <div class="red-line"></div>
+            <div class="red-line"></div>
+            <div class="red-line"></div>
+            </div>
+
+      <div class="column" style="height: 100px; margin-left: 121px;">
+
+            <div class="red-line"></div>
+            <div class="red-line"></div>
+            <div class="red-line"></div>
+            <div class="red-line"></div>
+            <div class="red-line"></div>
+            <div class="red-line"></div>
+            </div>
+
+            </div>
 
       
 
       <!--버스, 흰 동그라미, 빨간선, 정류장 이름을 담을 container를 만듦-->
 
-        <div class="column"> <!--수직배치, 나중에 닫을 것-->
+        <div class="column", style="margin-left: 240px;"> <!--수직배치, 나중에 닫을 것-->
         
         <!--먼저 큰 div를 만들고 가로로 요소(하행버스, 흰 동글, 정류장, 흰 동글, 상행버스)를 담을 것임-->
-          <div style="display: flex; gap: 10px;" id="big DIV">
+          <div style="display: flex; gap: 10px; width:500px;" id="big DIV">
 
             <!--하행버스 정류장 버스리스트 div를 먼저 배치-->
 
-            {% for item in downList2.0 %}
-               {% for value in item %}
-                   <!--하행버스의 파란지붕 정류장 버스 리스트 불러오기-->
-
-                   <!--flex-grow=1;을 사용해 span이 뜨더라도 다른 div의 위치에 영향이 없도록 하고자 함-->
-                     <div style="display: flex; flex-grow: 1;">
-                      {% if forloop.counter0 == 0 %}
-                      <span class="bus-div-style" style="margin-bottom: 0;">{{ value }}</span> <!--버스 번호를 띄우는 span-->
-                      
-                     </div>
-                  {% endif %}
-               {% endfor %}
+            
+            {% for value in DownList2.0 %}
+                  <div style="display: flex; margin-bottom: 0%;">
+                   <span class="bus-div-style">{{ value }}</span> <!--버스 번호를 띄우는 span-->
+                  </div>
             {% endfor %}
+         
 
-            <div style="display:flex; flex-grow: 0;"> <!--빨간선, 정류장, 빨간선을 div로 한번 더 감싸기-->
+            <div style="display:flex; flex-grow: 0; justify-content:center"> <!--빨간선, 정류장, 빨간선을 div로 한번 더 감싸기-->
 
 
             
@@ -198,10 +220,10 @@
             <!--즉, column이라는 이름의 div가 흰 동그라미+빨간 선 div가 되는 것-->
 
           <!--그 다음 정류장 이름이 들어가는 div를 만든다-->
-          <div class="bus-station" style="margin-right: 30px;">  파란지붕  </div>
+          <div class="bus-station" style="margin-right: 35px; padding-left: 10px;">  파란지붕  </div>
 
           <!--그리고 다시 흰 동그라미-->
-          <div class="column" style="height: 100px;">
+          <div class="column" style="height: 100px;;">
             <div class="red-line"> 
               <div class="circle"></div> 
             </div>
@@ -216,15 +238,13 @@
             </div>
 
           <!--그리고 상행버스의 파란지붕 정류장 버스 리스트를 담는 div-->
-          {% for item in upList %}
-               {% for value in item %}
-                  {% if forloop.counter0 == 0 %} <!--상행버스의 파란지붕 정류장 버스 리스트 불러오기-->
-                     <div style="display: flex; margin-bottom: 0; flex-grow: 1;">
+          
+               {% for value in upList.0 %}
+                     <div style="display: flex; margin-bottom: 0%;">
                       <span class="bus-div-style">{{ value }}</span> <!--버스 번호를 띄우는 span-->
                      </div>
-                  {% endif %}
                {% endfor %}
-            {% endfor %}    
+            
 
 
                     
@@ -240,13 +260,13 @@
         <!--두번째 단락(도서관 부분)-->
 
         <!--먼저 큰 div를 만들고 가로로 요소를 담을 것임-->
-        <div style="display: flex; gap: 10px;" id="big DIV">
+        <div style="display: flex; gap: 10px; width:500px;" id="big DIV">
 
           <!--하행버스 정류장 버스리스트 div를 먼저 배치-->
 
          <!--도서관은 하행 버스 없으므로, 버스 리스트 출력 부분을 삭제한다.-->
 
-         <div style="display:flex; flex-grow: 0;">
+         <div style="display:flex; flex-grow: 0; justify-content:center">
 
           <!--정류장이 없으므로 흰색 동그라미는 넣지 않는다-->
           <div class="column" style="height: 100px; margin-left: 50px; margin-right: 30px;">
@@ -278,15 +298,13 @@
           </div>
 
         <!--그리고 상행버스의 도서관 정류장 버스 리스트를 담는 div-->
-        {% for item in upList %}
-             {% for value in item %}
-                {% if forloop.counter0 == 1 %} <!--상행버스의 파란지붕 정류장 버스 리스트 불러오기-->
-                   <div style="display: flex; margin-bottom: 0; flex-grow: 1;">
-                    <span class="bus-div-style" style="margin-bottom: 0;">{{ value }}</span> <!--버스 번호를 띄우는 span-->
-                   </div>
-                {% endif %}
-             {% endfor %}
-          {% endfor %}    
+        
+        {% for value in upList.1 %}
+              <div style="display: flex; margin-bottom: 0%;">
+               <span class="bus-div-style">{{ value }}</span> <!--버스 번호를 띄우는 span-->
+              </div>
+        {% endfor %}
+     
 
       </div> <!--여기까지 bid DIV-->
 
@@ -296,21 +314,18 @@
           <!--세번째 단락(기숙사 부분)-->
 
           <!--먼저 큰 div를 만들고 가로로 요소를 담을 것임-->
-          <div style="display: flex; gap: 10px;" id="big DIV">
+          <div style="display: flex; gap: 10px; width:500px;" id="big DIV">
 
             <!--하행버스 정류장 버스리스트 div를 먼저 배치-->
 
-            {% for item in downList2 %}
-               {% for value in item %}
-                  {% if forloop.counter0 == 1 %} <!--하행버스의 기숙사 정류장 버스 리스트 불러오기-->
-                     <div style="display: flex; margin-bottom: 0; flex-grow: 1;">
-                      <span class="bus-div-style" style="margin-bottom: 0;">{{ value }}</span> <!--버스 번호를 띄우는 span-->
-                     </div>
-                  {% endif %}
-               {% endfor %}
+            
+            {% for value in DownList2.2 %}
+                  <div style="display: flex;">
+                   <span class="bus-div-style">{{ value }}</span> <!--버스 번호를 띄우는 span-->
+                  </div>
             {% endfor %}
-
-            <div style="display:flex; flex-grow:0;">
+         
+            <div style="display:flex; flex-grow:0; justify-content:center">
 
             <!--그 다음, 빨간 선 위에 흰색 동그라미를 absolute로 얹기-->
             <div class="column" style="height: 100px; margin-left: 50px; margin-right: 30px;">
@@ -344,15 +359,13 @@
             </div>
 
           <!--그리고 상행버스의 기숙사 정류장 버스 리스트를 담는 div-->
-          {% for item in upList %}
-               {% for value in item %}
-                  {% if forloop.counter0 == 2 %} <!--상행버스의 기숙사 정류장 버스 리스트 불러오기-->
-                     <div style="display: flex; margin-bottom: 0; flex-grow:1;">
-                      <span class="bus-div-style" style="margin-bottom: 0;">{{ value }}</span> <!--버스 번호를 띄우는 span-->
-                     </div>
-                  {% endif %}
-               {% endfor %}
-            {% endfor %}    
+          
+          {% for value in upList.2 %}
+                <div style="display: flex; margin-bottom: 0%;">
+                 <span class="bus-div-style">{{ value }}</span> <!--버스 번호를 띄우는 span-->
+                </div>
+          {% endfor %}
+       
         </div> <!--여기까지 bid DIV-->
 
 
@@ -360,21 +373,19 @@
         <!--네번째 단락(모현사거리 부분)-->
 
         <!--먼저 큰 div를 만들고 가로로 요소를 담을 것임-->
-        <div style="display: flex; gap: 10px;" id="big DIV">
+        <div style="display: flex; gap: 10px; width:500px;" id="big DIV">
 
           <!--하행버스 정류장 버스리스트 div를 먼저 배치-->
 
-          {% for item in downList2 %}
-             {% for value in item %}
-                {% if forloop.counter0 == 2 %} <!--하행버스의 모현사거리 정류장 버스 리스트 불러오기-->
-                   <div style="display: flex; margin-bottom: 0;">
-                    <span class="bus-div-style" style="margin-bottom: 0;">{{ value }}</span> <!--버스 번호를 띄우는 span-->
-                   </div>
-                {% endif %}
-             {% endfor %}
+          
+          {% for value in DownList2.3 %}
+                <div style="display: flex; margin-bottom: 0%;">
+                 <span class="bus-div-style">{{ value }}</span> <!--버스 번호를 띄우는 span-->
+                </div>
           {% endfor %}
+       
 
-          <div style="display:flex; flex-grow:0;">
+          <div style="display:flex; flex-grow:0; justify-content:center">
 
           <!--그 다음, 빨간 선 위에 흰색 동그라미를 absolute로 얹기-->
           <div class="column" style="height: 100px; margin-left: 50px; margin-right: 30px;">
@@ -408,15 +419,13 @@
           </div>
 
         <!--그리고 상행버스의 모현사거리 정류장 버스 리스트를 담는 div-->
-        {% for item in upList %}
-             {% for value in item %}
-                {% if forloop.counter0 == 3 %} <!--상행버스의 모현사거리 정류장 버스 리스트 불러오기-->
-                   <div style="display: flex; margin-bottom: 0; flex-grow:1;">
-                    <span class="bus-div-style" style="margin-bottom: 0;">{{ value }}</span> <!--버스 번호를 띄우는 span-->
-                   </div>
-                {% endif %}
-             {% endfor %}
-          {% endfor %}    
+        
+        {% for value in upList.3 %}
+              <div style="display: flex; margin-bottom: 0%;">
+               <span class="bus-div-style">{{ value }}</span> <!--버스 번호를 띄우는 span-->
+              </div>
+        {% endfor %}
+     
       </div> <!--여기까지 bid DIV-->
 
 
@@ -427,21 +436,19 @@
 
 
       <!--먼저 큰 div를 만들고 가로로 요소를 담을 것임-->
-      <div style="display: flex; gap: 10px;" id="big DIV">
+      <div style="display: flex; gap: 10px; width:500px;" id="big DIV">
 
         <!--하행버스 정류장 버스리스트 div를 먼저 배치-->
 
-        {% for item in downList2 %}
-           {% for value in item %}
-              {% if forloop.counter0 == 3 %} <!--하행버스의 외대사거리 정류장 버스 리스트 불러오기-->
-                 <div style="display: flex; margin-bottom: 0; flex-grow:1;">
-                  <span class="bus-div-style" style="margin-bottom: 0;">{{ value }}</span> <!--버스 번호를 띄우는 span-->
-                 </div>
-              {% endif %}
-           {% endfor %}
-        {% endfor %}
+        
+               {% for value in DownList2.4 %}
+                     <div style="display: flex; margin-bottom: 0%;">
+                      <span class="bus-div-style">{{ value }}</span> <!--버스 번호를 띄우는 span-->
+                     </div>
+               {% endfor %}
+          
 
-        <div style="display:flex; flex-grow:0;">
+        <div style="display:flex; flex-grow:0; justify-content:center">
 
         <!--그 다음, 빨간 선 위에 흰색 동그라미를 absolute로 얹기-->
         <div class="column" style="height: 100px; margin-left: 50px; margin-right: 30px;">
@@ -475,15 +482,13 @@
         </div>
 
       <!--그리고 상행버스의 외대사거리 정류장 버스 리스트를 담는 div-->
-      {% for item in upList %}
-           {% for value in item %}
-              {% if forloop.counter0 == 4 %} <!--상행버스의 외대사거리 정류장 버스 리스트 불러오기-->
-                 <div style="display: flex; margin-bottom: 0; flex-grow:1;">
-                  <span class="bus-div-style" style="margin-bottom: 0;">{{ value }}</span> <!--버스 번호를 띄우는 span-->
-                 </div>
-              {% endif %}
-           {% endfor %}
-        {% endfor %}    
+      
+      {% for value in upList.4 %}
+            <div style="display: flex; margin-bottom: 0%;">
+             <span class="bus-div-style">{{ value }}</span> <!--버스 번호를 띄우는 span-->
+            </div>
+      {% endfor %}
+   
     </div> <!--여기까지 bid DIV-->
 
 
