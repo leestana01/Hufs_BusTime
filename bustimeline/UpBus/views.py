@@ -14,13 +14,8 @@ def bus_list(request):
     # 실시간 버스 위치 정보를 저장할 딕셔너리
     bus_locations_Down = APICaller(228000345) #하행 종점 | 외대.모현빌라
     bus_locations_Up = APICaller(228000349) #상행 종점 | 한국외대종점
-
-    print('하행버스')
-    print(bus_locations_Down)
-    print('상행버스')
-    print(bus_locations_Up)
+    print('------------------------API 호출 끝!---------------------------')
     
-    print('하행버스-정류장 리스트화')
     downList1 = [[],[],[],[],[]]
     downList2 = []
     for idx, inList in enumerate(downList1):
@@ -31,7 +26,9 @@ def bus_list(request):
         if idx == 1:
             continue
         downList2.append(inList)
+    print('하행버스-정류장 리스트화 (변환 전)')
     print(downList1)
+    print('하행버스-정류장 리스트화 (변환 후)')
     print(downList2)
 
     print('상행버스-정류장 리스트화')
