@@ -10,10 +10,12 @@ from .models import Bus
 #   버스번호2:{location:몇정거장전? , predict_time:예상시간?},
 # } 
 
-
+testMode = 1 # 0이면 실시간 데이터, 1이면 샘플 데이터
 serviceKey = settings.SERVICE_KEY
 
 def APICaller(stationId):
+    if testMode:
+        return {'1005': {'location': '0', 'predict_time': '999'}, '1117': {'location': '3', 'predict_time': '999'}, '1150': {'location': '3', 'predict_time': '999'}, '1303': {'location': '4', 'predict_time': '999'}}
     base_url = f'http://apis.data.go.kr/6410000/busarrivalservice/getBusArrivalList?serviceKey={serviceKey}'
     initDict = {'location':100, 'predict_time':999}
     results = {bus.number : initDict for bus in Bus.objects.all()}
