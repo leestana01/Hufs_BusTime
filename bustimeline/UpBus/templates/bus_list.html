@@ -36,6 +36,11 @@
             align-items: center;
         }
 
+        .linear {
+            display: flex;
+            flex-direction: linear;
+        }
+
         .red-line {
             position: relative;
             width: 10px;
@@ -113,22 +118,25 @@
             font-size: 15px;
             background-color: yellow;
             padding: 5px;
-            margin: 5px 10px 0;
+            /* margin: 5px 10px 0; */
             /* 여백 조정 */
             border-radius: 5px;
             /* 둥근 모서리 적용 */
             border: 3px solid black;
             /* 검은색 테두리 적용 */
             margin-bottom: 0;
-            width: 40px;
             height: 15px;
-
             /*width랑 height 직접 지정하는 방식으로 여백 줄여보기 */
+        }
+
+        .bus-updiv-style{
+            width: 110px;
         }
 
         .bus-station {
             font-size: 15px;
         }
+
     </style>
 
     <script>
@@ -176,16 +184,19 @@
                 </div>
 
                 <!--모든 정보를 담은 컨테이너 _ 수직정렬-->
-                <div class="column" , style="margin-left: 240px;">
+                <div class="column" , style="margin-left: 240px; margin: 0 auto">
 
                     <!--div를 만들고 가로로 요소 배치(하행버스, 흰 동글, 정류장, 흰 동글, 상행버스)-->
-                    <div style="display: flex; gap: 10px; width:670px;" id="big DIV">
+                    <div style="display: flex; gap: 10px; width:500px;" id="big DIV">
+                        
 
-                        {% for value in downList.0 %}
-                        <div style="display: flex; margin-bottom: 0%; justify-content: flex-start;">
-                            <span class="bus-div-style">{{ value }}</span> <!-- 버스 번호 -->
+                        <div class="bus-updiv-style" style="text-align:end;">
+                            {% for value in downList.0 %}
+                            <div style="display: flex; margin-bottom: 0%; display: inline-block;">
+                                <span class="bus-div-style">{{ value }}</span> <!-- 버스 번호 -->
+                            </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
 
                         <div style="display:flex; flex-grow: 0; justify-content:center"> <!-- 한 세트의 요소-->
 
@@ -207,12 +218,14 @@
 
                         <!--그리고 상행버스의 파란지붕 정류장 버스 리스트를 담는 div-->
 
-                        {% for value in upList.0 %}
-                        <div style="display: flex; margin-bottom: 0%;">
-                            <span class="bus-div-style">{{ value }}</span>
-                            <!--버스 번호를 띄우는 span-->
+                        <div class="bus-updiv-style" style="text-align:center;">
+                            {% for value in upList.0 %}
+                            <div style="display: flex; margin-bottom: 0%; display: inline-block;">
+                                <span class="bus-div-style">{{ value }}</span>
+                                <!--버스 번호를 띄우는 span-->
+                            </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
                         
 
 
@@ -226,8 +239,10 @@
                     <!--두번째 단락(도서관 부분)-->
                     <div style="display: flex; gap: 10px; width:500px;" id="big DIV">
 
-                        <div style="display:flex; flex-grow: 0; justify-content:center">
+                        <div class="bus-updiv-style"></div>
 
+                        <div style="display:flex; flex-grow: 0; justify-content:center">
+                            
                             <div class="column" style="margin-left: 50px; margin-right: 30px;">
                                 <div class="red-line-long">
                                 </div>
@@ -243,12 +258,14 @@
 
                         </div>
 
-                        {% for value in upList.1 %}
-                        <div style="display: flex; margin-bottom: 0%;">
-                            <span class="bus-div-style">{{ value }}</span>
-                            <!--버스 번호를 띄우는 span-->
+                        <div class="bus-updiv-style" style="text-align:center;">
+                            {% for value in upList.1 %}
+                            <div class="linear" style="margin-bottom: 0%; display: inline-block;">
+                                <span class="bus-div-style">{{ value }}</span>
+                                <!--버스 번호를 띄우는 span-->
+                            </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
 
 
                     </div>
@@ -257,11 +274,13 @@
 
                     <div style="display: flex; gap: 10px; width:500px;" id="big DIV">
 
-                        {% for value in downList.1 %}
-                        <div style="display: flex; justify-content: flex-start;">
-                            <span class="bus-div-style">{{ value }}</span>
+                        <div class="bus-updiv-style" style="text-align:center;">
+                            {% for value in downList.1 %}
+                            <div style="display: flex; display: inline-block;">
+                                <span class="bus-div-style">{{ value }}</span>
+                            </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
 
                         <div style="display:flex; flex-grow:0; justify-content:center">
 
@@ -281,11 +300,13 @@
 
                         </div>
 
-                        {% for value in upList.2 %}
-                        <div style="display: flex; margin-bottom: 0%;">
-                            <span class="bus-div-style">{{ value }}</span>
+                        <div class="bus-updiv-style" style="text-align:center;">
+                            {% for value in upList.2 %}
+                            <div style="display: flex; display: inline-block;">
+                                <span class="bus-div-style">{{ value }}</span>
+                            </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
 
                     </div>
 
@@ -293,11 +314,13 @@
 
                     <div style="display: flex; gap: 10px; width:500px;" id="big DIV">
 
-                        {% for value in downList.2 %}
-                        <div style="display: flex; margin-bottom: 0%; justify-content: flex-start;">
-                            <span class="bus-div-style">{{ value }}</span>
+                        <div class="bus-updiv-style" style="text-align:center;">
+                            {% for value in downList.2 %}
+                            <div style="display: flex; display: inline-block;">
+                                <span class="bus-div-style">{{ value }}</span>
+                            </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
 
                         <div style="display:flex; flex-grow:0; justify-content:center">
 
@@ -317,23 +340,27 @@
 
                         </div>
 
-                        {% for value in upList.3 %}
-                        <div style="display: flex; margin-bottom: 0%;">
-                            <span class="bus-div-style">{{ value }}</span>
+                        <div class="bus-updiv-style" style="text-align:center;">
+                            {% for value in upList.3 %}
+                            <div style="display: flex; display:inline-block">
+                                <span class="bus-div-style">{{ value }}</span>
+                            </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
 
                     </div>
 
                     <!--다섯번째 단락(외대사거리 부분)-->
 
-                    <div style="display: flex; gap: 10px; width:670px;" id="big DIV">
+                    <div style="display: flex; gap: 10px; width:500px;" id="big DIV">
 
-                        {% for value in downList.3 %}
-                        <div style="display: flex; margin-bottom: 0%; justify-content: flex-start;">
-                            <span class="bus-div-style">{{ value }}</span>
+                        <div class="bus-updiv-style" style="text-align:center;">
+                            {% for value in downList.3 %}
+                            <div style="display: flex; display:inline-block">
+                                <span class="bus-div-style">{{ value }}</span>
+                            </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
 
 
                         <div style="display:flex; flex-grow:0; justify-content:center">
@@ -354,11 +381,13 @@
 
                         </div>
 
-                        {% for value in upList.4 %}
-                        <div style="display: flex; margin-bottom: 0%;">
-                            <span class="bus-div-style">{{ value }}</span>
+                        <div class="bus-updiv-style" style="text-align:center;">
+                            {% for value in upList.4 %}
+                            <div style="display: flex; display:inline-block">
+                                <span class="bus-div-style">{{ value }}</span>
+                            </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
 
                     </div>
                     <!--여기까지 bid DIV-->
