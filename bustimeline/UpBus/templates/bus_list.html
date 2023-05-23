@@ -161,12 +161,11 @@
 
                 <!--수정해야 할 것-->
                 <!--버스 번호 띄우는 span 디테일한 디자인 반영하기(전체시간표의 span 디자인처럼?)-->
-                <!--(가능하다면) 빨간 선 중간중간 끊긴 부분 잇기(div 단위로 5개를 붙여둔거라서 어렵습니다,,)-->
 
 
                 <div style="display:flex">
 
-                    <div class="column" style="margin-left: 16px; margin-right: 15px;">
+                    <div class="column" style="margin-left: -4px; margin-right: 13px;">
                         <div class="red-line-long"></div>
                     </div>
 
@@ -177,13 +176,13 @@
                 </div>
 
                 <!--모든 정보를 담은 컨테이너 _ 수직정렬-->
-                <div class="column" , style="margin-left: 240px;;">
+                <div class="column" , style="margin-left: 240px;">
 
                     <!--div를 만들고 가로로 요소 배치(하행버스, 흰 동글, 정류장, 흰 동글, 상행버스)-->
-                    <div style="display: flex; gap: 10px; width:500px;" id="big DIV">
+                    <div style="display: flex; gap: 10px; width:670px;" id="big DIV">
 
                         {% for value in downList.0 %}
-                        <div style="display: flex; margin-bottom: 0%;">
+                        <div style="display: flex; margin-bottom: 0%; justify-content: flex-start;">
                             <span class="bus-div-style">{{ value }}</span> <!-- 버스 번호 -->
                         </div>
                         {% endfor %}
@@ -259,7 +258,7 @@
                     <div style="display: flex; gap: 10px; width:500px;" id="big DIV">
 
                         {% for value in downList.1 %}
-                        <div style="display: flex;">
+                        <div style="display: flex; justify-content: flex-start;">
                             <span class="bus-div-style">{{ value }}</span>
                         </div>
                         {% endfor %}
@@ -295,7 +294,7 @@
                     <div style="display: flex; gap: 10px; width:500px;" id="big DIV">
 
                         {% for value in downList.2 %}
-                        <div style="display: flex; margin-bottom: 0%;">
+                        <div style="display: flex; margin-bottom: 0%; justify-content: flex-start;">
                             <span class="bus-div-style">{{ value }}</span>
                         </div>
                         {% endfor %}
@@ -328,10 +327,10 @@
 
                     <!--다섯번째 단락(외대사거리 부분)-->
 
-                    <div style="display: flex; gap: 10px; width:500px;" id="big DIV">
+                    <div style="display: flex; gap: 10px; width:670px;" id="big DIV">
 
                         {% for value in downList.3 %}
-                        <div style="display: flex; margin-bottom: 0%;">
+                        <div style="display: flex; margin-bottom: 0%; justify-content: flex-start;">
                             <span class="bus-div-style">{{ value }}</span>
                         </div>
                         {% endfor %}
