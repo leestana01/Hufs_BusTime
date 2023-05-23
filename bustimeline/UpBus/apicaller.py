@@ -10,7 +10,7 @@ from .models import Bus
 #   버스번호2:{location:몇정거장전? , predict_time:예상시간?},
 # } 
 
-testMode = 1 # 0이면 실시간 데이터, 1이면 샘플 데이터
+testMode = 0 # 0이면 실시간 데이터, 1이면 샘플 데이터
 serviceKey = settings.SERVICE_KEY
 
 def APICaller(stationId):
@@ -28,8 +28,10 @@ def APICaller(stationId):
         routeId = busArrival.find('routeId').text
         locationNo1 = busArrival.find('locationNo1').text
         predictTime1 = busArrival.find('predictTime1').text
-        bus = Bus.objects.filter(routeId=routeId).first().number
-        results[bus] = {'location': locationNo1, 'predict_time': predictTime1}
+        bus = Bus.objects.filter(routeId=routeId)
+        if (bus):
+            busNumber = bus.first().number
+            results[busNumber] = {'location': locationNo1, 'predict_time': predictTime1}
     print(results)
     return results
 
