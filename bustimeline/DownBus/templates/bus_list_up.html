@@ -1,278 +1,314 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>요일별 버스 시간표</title>
-  <!--'버스 시간표 보기' 버튼 클릭 시 나오는 화면입니다-->
-  <!--실시간 위치가 아니라, 발표되는 빨버 시간표의 내용을 화면으로 확인하는 페이지입니다-->
-  <!--'현재 시간 이후로 보기' 버튼 클릭 시 현재 시간으로 스크롤이 이동하여 더 편한 ux 제공이 가능합니다-->
-  <!--api가 아닌 6팀의 버스 시간표 DB와 연동해 평일, 토요일, 일요일마다 버스 시간표가 달라집니다-->
-  <style>
-    body{
-      background-color: beige;
-    }
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>요일별 버스 시간표</title>
+    <!--'버스 시간표 보기' 버튼 클릭 시 나오는 화면입니다-->
+    <!--실시간 위치가 아니라, 발표되는 빨버 시간표의 내용을 화면으로 확인하는 페이지입니다-->
+    <!--'현재 시간 이후로 보기' 버튼 클릭 시 현재 시간으로 스크롤이 이동하여 더 편한 ux 제공이 가능합니다-->
+    <!--api가 아닌 6팀의 버스 시간표 DB와 연동해 평일, 토요일, 일요일마다 버스 시간표가 달라집니다-->
+    <style>
+      body {
+        background-color: beige;
+      }
 
-    #main-container {
+      #main-container {
         display: flex;
         justify-content: center;
         align-items: center;
         min-height: 100vh;
-        font-family: 'Main', sans-serif;
+        font-family: "Main", sans-serif;
         background-color: beige;
-    }
+      }
 
-    #container {
+      #container {
         display: flex;
-    }
+      }
 
-    .container {
+      .container {
         display: flex;
         flex-direction: column;
         align-items: center;
-    }
-      
-    .column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    }
+      }
 
-    .red-line-first {
-      width: 10px;
-      height: 50px;
-      margin-top: -30px;
-      margin-left:10px;
-      border-top: 10px solid red;
-      border-left: 10px solid red;
-      /* border-bottom: 10px solid red;
+      .column {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .red-line-first {
+        width: 10px;
+        height: 50px;
+        margin-top: -30px;
+        margin-left: 10px;
+        border-top: 10px solid red;
+        border-left: 10px solid red;
+        /* border-bottom: 10px solid red;
       border-right: 10px solid red; */
-      border-top-left-radius: 20px;
-    }
+        border-top-left-radius: 20px;
+      }
 
-    .red-line {
-    position: relative;
-    width: 10px;
-    height: 100%;
-    background-color: red;
-    }
+      .red-line {
+        position: relative;
+        width: 10px;
+        height: 100%;
+        background-color: red;
+      }
 
-    .rectangle {
-    position: relative;
-    width: 200px;
-    border-radius: 15px;
-    border: 2px solid red;
-    background-color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0px;
-    }
+      .rectangle {
+        position: relative;
+        width: 200px;
+        border-radius: 15px;
+        border: 2px solid red;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0px;
+      }
 
-    .word-container {
-    position: absolute;
-    top: 16%;
-    left: 48%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    }
+      .word-container {
+        position: absolute;
+        top: 16%;
+        left: 48%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
-    .text {
-    font-size: 13px;
-    font-weight: bold;
-    }
+      .text {
+        font-size: 13px;
+        font-weight: bold;
+      }
 
-    .circle-container {
-    position: absolute;
-    top: 0%;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    }
+      .circle-container {
+        position: absolute;
+        top: 0%;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
 
-    .circle08\:00, .circle09\:00, .circle10\:00, .circle11\:00, .circle12\:00, .circle13\:00, .circle14\:00, .circle15\:00, .circle16\:00, .circle17\:00, .circle18\:00, .circle19\:00, .circle20\:00, .circle21\:00, .circle22\:00, .circle23\:00, .circle24\:00 {
-    position: absolute;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    border: 5px solid red;
-    background-color: white;
-    margin-top:10px;
-    top: 0%;
-    left: 50%;
-    transform: translateX(-50%);
-    }
+      .circle08\:00,
+      .circle09\:00,
+      .circle10\:00,
+      .circle11\:00,
+      .circle12\:00,
+      .circle13\:00,
+      .circle14\:00,
+      .circle15\:00,
+      .circle16\:00,
+      .circle17\:00,
+      .circle18\:00,
+      .circle19\:00,
+      .circle20\:00,
+      .circle21\:00,
+      .circle22\:00,
+      .circle23\:00,
+      .circle24\:00 {
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        border: 5px solid red;
+        background-color: white;
+        margin-top: 10px;
+        top: 0%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
 
-
-    .time {
+      .time {
+        width: 50px;
         margin-top: 10px;
         font-size: 18px;
         font-weight: bold;
-        font-family: 'Inter';
-    }
+        font-family: "Inter";
+      }
 
-    .bus-div-style {
-        
+      .bus-div-style {
+        background: #ffffff;
+        box-shadow: 0px 0px 4px rgba(60, 72, 107, 0.25);
+        border-radius: 10px;
+        padding: 8px;
+        gap: 10px;
+
         font-size: 18px;
-        background-color: whitesmoke;
-        /* padding: 5px; */
         margin: 5px 10px; /* 여백 조정 */
-        border-radius: 5px; /* 둥근 모서리 적용 */
-        border: 2px solid rgb(194, 189, 189); /* 검은색 테두리 적용 */
-    }
+      }
 
-    .bus-div-nums {
+      .bus-div-nums {
         margin-top: 5px;
         margin-right: 10px;
         font-size: 18px;
         font-weight: bold;
-        font-family: 'Inter';
-    }
-
-    .shine-button {
-      position: relative;
-      overflow: hidden;
-      color: #fff;
-      background-color: #ff008c;
-      padding: 5px 10px;
-      margin-bottom: 5px;
-      border: none;
-      cursor: pointer;
-      transition: background 0.8s ease;
-    }
-
-    .shine-button::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 130%;
-      height: 100%;
-      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-      transform: translateX(-100%);
-      animation: shine 2s infinite;
-    }
-
-    @keyframes shine {
-      to {
-        transform: translateX(100%);
+        font-family: "Inter";
       }
-    }
 
-    @font-face {
-      font-family: 'Main';
-      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
-      font-weight: normal;
-      font-style: normal;
-    }
+      .shine-button {
+        position: relative;
+        overflow: hidden;
+        color: #fff;
+        background-color: #ff008c;
+        padding: 5px 10px;
+        margin-bottom: 5px;
+        border: none;
+        cursor: pointer;
+        transition: background 0.8s ease;
+      }
 
-    @font-face {
-      font-family: 'Inter';
-      src: url('https://fonts.googleapis.com/css2?family=Inter&display=swap') format('woff2');
-      font-weight: normal;
-      font-style: normal;
-    }
+      .shine-button::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 130%;
+        height: 100%;
+        background: linear-gradient(
+          45deg,
+          transparent,
+          rgba(255, 255, 255, 0.4),
+          transparent
+        );
+        transform: translateX(-100%);
+        animation: shine 2s infinite;
+      }
 
-  </style>
-</head>
-<body>
-  <div id="main-container">
-    <div id="container">
-      <div id="container1" class="container">
-        <a href="/"><img src="/static/logo.png" style="width:150px"></a>
-        <div class="column">
-          <div class="rectangle column">
-            <p class="text">오늘의 버스 목록이예요!</p>
-            <button class="scroll-button shine-button" onclick="scrollToCurrentTime()">현재 시간으로 이동</button>
-          </div>
-        
+      @keyframes shine {
+        to {
+          transform: translateX(100%);
+        }
+      }
 
-          <!--view에서 시간/버스 리스트를 받아오는 부분-->
-          <!--만약 버스가 없으면 값을 아예 주지 않겠다고 함 -> list보다는 index로 가기로 함 -->
-          <div>
-            <!--busInfo라는 인덱스. 여기서 busInfo.0을 하면 0번째 요소인 bustime이 되고, busInfo.1을 하면 1번째 요소인 buslist가 된다-->
-            <div style="display: flex; height: 30px; width:350px;" class="bigDIV">
-              <div class="time" style="color:white">00:00</div>
-              <div class="red-line-first"></div>
+      @font-face {
+        font-family: "Main";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2")
+          format("woff2");
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "Inter";
+        src: url("https://fonts.googleapis.com/css2?family=Inter&display=swap")
+          format("woff2");
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main-container">
+      <div id="container">
+        <div id="container1" class="container">
+          <div class="column">
+            <div class="rectangle column">
+              <p class="text">🚍 오늘 버스 시간표</p>
+              <button
+                class="scroll-button shine-button"
+                onclick="scrollToCurrentTime()"
+              >
+                현재 시간으로 이동
+              </button>
             </div>
-            {% for busInfo in timeList %}
-            <div style="display: flex; gap: 10px; height: 50px; width:350px;" class="bigDIV">
 
-              <!--bustime을 먼저(맨 왼쪽에) 표시한다-->
-              
-              <!--<div id="formatted-time"></div>-->
+            <!--view에서 시간/버스 리스트를 받아오는 부분-->
+            <!--만약 버스가 없으면 값을 아예 주지 않겠다고 함 -> list보다는 index로 가기로 함 -->
+            <div>
+              <!--busInfo라는 인덱스. 여기서 busInfo.0을 하면 0번째 요소인 bustime이 되고, busInfo.1을 하면 1번째 요소인 buslist가 된다-->
+              <div
+                style="display: flex; height: 30px; width: 350px"
+                class="bigDIV"
+              >
+                <div class="time" style="color: transparent">00:00</div>
+                <div class="red-line-first"></div>
+              </div>
+              {% for busInfo in timeList %}
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+                  height: 70px;
+                  width: 350px;
+                "
+                class="bigDIV"
+              >
+                <!--bustime을 먼저(맨 왼쪽에) 표시한다-->
 
-              <div class="time" id="time_{{busInfo.0}}">{{ busInfo.0 }}</div>
+                <!--<div id="formatted-time"></div>-->
 
-              <!--빨간 선을 반복생성하는 부분-->
-              <div class="red-line">
+                <div class="time" id="time_{{busInfo.0}}">{{ busInfo.0 }}</div>
 
-                <!--만약 지금 시간이 정각이면, 빨간 선 위에 흰색 동그라미를 올린다(redline + circle(absolute))-->
-                
+                <!--빨간 선을 반복생성하는 부분-->
                 <div class="red-line">
-                      <div class="circle{{ busInfo.0 }}"></div>
+                  <!--만약 지금 시간이 정각이면, 빨간 선 위에 흰색 동그라미를 올린다(redline + circle(absolute))-->
+
+                  <div class="red-line">
+                    <div class="circle{{ busInfo.0 }}"></div>
+                  </div>
                 </div>
-                      
+                <!--여기까지 red-line의 div-->
 
-              </div> <!--여기까지 red-line의 div-->
+                <!--만약 해당 시간(bustime)에 일치하는 버스(buslist)가 있으면, 옆에 div를 띄움(가장 오른쪽 요소, busInfo.1)-->
 
-              <!--만약 해당 시간(bustime)에 일치하는 버스(buslist)가 있으면, 옆에 div를 띄움(가장 오른쪽 요소, busInfo.1)-->
+                <!--<div>{{ busInfo.1 }}-->
 
-              <!--<div>{{ busInfo.1 }}-->
-
-              <!--busInfo.1(버스 리스트)에 해당하는 버스를 모두 div로 시간 옆에 나열하기 위해, 반복문-->
-              <div style="max-width: 500px;">
-              <div class="bus-div-style" style="display:flex">
-                <img src="/static/bus_adobe_express.svg" style="width:50px;">
-                <div class="bus-div-nums">
-                  {% for busDiv in busInfo.1 %}
-                  <span>{{ busDiv }}</span>
-                  {% endfor %}
+                <!--busInfo.1(버스 리스트)에 해당하는 버스를 모두 div로 시간 옆에 나열하기 위해, 반복문-->
+                <div style="max-width: 500px">
+                  <div class="bus-div-style" style="display: flex">
+                    <img src="/static/basic_bus_img.svg" style="width: 30px" />
+                    <div class="bus-div-nums">
+                      {% for busDiv in busInfo.1 %}
+                      <span>{{ busDiv }}</span>
+                      {% endfor %}
+                    </div>
+                  </div>
                 </div>
-              </div>
-              </div>
 
-              
-              <!--</div>여기까지 busInfo.1의 div-->
-
+                <!--</div>여기까지 busInfo.1의 div-->
               </div>
-            {% endfor %}
+              {% endfor %}
             </div>
-
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script>
-  function scrollToCurrentTime() {
-    console.log('실행됨')
-    // 현재 시간을 확인합니다.
-    let now = new Date();
-    let hour = now.getHours();
-    let minute = now.getMinutes();
+    <script>
+      function scrollToCurrentTime() {
+        console.log("실행됨");
+        // 현재 시간을 확인합니다.
+        let now = new Date();
+        let hour = now.getHours();
+        let minute = now.getMinutes();
 
-    // 해당 시간의 id를 계산합니다.
-    let timeId = 'time_' + timeToString(hour) + ":" + timeToString(minute);
-    // 해당 위치로 스크롤합니다.
-    let element = document.getElementById(timeId);
-    while (!element && hour < 24){
-      minute += 1;
-      if (minute >= 60) { minute = 0; hour += 1; }
-      timeId = 'time_' + timeToString(hour) + ":" + timeToString(minute);
-      element = document.getElementById(timeId);
-      console.log(timeId)
-    }
-    if (element) { element.scrollIntoView({behavior:"smooth"}); }
-  }
+        // 해당 시간의 id를 계산합니다.
+        let timeId = "time_" + timeToString(hour) + ":" + timeToString(minute);
+        // 해당 위치로 스크롤합니다.
+        let element = document.getElementById(timeId);
+        while (!element && hour < 24) {
+          minute += 1;
+          if (minute >= 60) {
+            minute = 0;
+            hour += 1;
+          }
+          timeId = "time_" + timeToString(hour) + ":" + timeToString(minute);
+          element = document.getElementById(timeId);
+          console.log(timeId);
+        }
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }
 
-  function timeToString(hour){
-    return String(hour).padStart(2, '0');
-  }
-  </script>
-
-</body>
+      function timeToString(hour) {
+        return String(hour).padStart(2, "0");
+      }
+    </script>
+  </body>
 </html>
