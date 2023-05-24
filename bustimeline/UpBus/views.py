@@ -1,57 +1,50 @@
+import xml.etree.ElementTree as ET
 from django.shortcuts import render
-from django.http import HttpResponse
+import urllib.parse
+from .apicaller import APICaller
 
-from .models import Bus
-import requests
-from bs4 import BeautifulSoup
+#수정!! 확인바람
 
-from django.conf import settings
+def bus_list(request):
 
-def bus_arrival(request):
-    busInfo = APICaller(228000351) 
-    # api를 호출하여 해당 정류장의 버스 정보를 받아옵니다.
-    # stationId는 Misc 폴더의 버스정류장.txt 파일을 참고하세요
-    return render(request, 'bus_list_up.html', {'results': busInfo})
+    # 버스 번호와 정류장 정보
+    bus_numbers = [1303, 1117, 1150, 1005]
+    bus_stops = ['외대사거리', '모현사거리', '기숙사', '도서관', '파란지붕']
 
+    # 실시간 버스 위치 정보를 저장할 딕셔너리
+    bus_locations_Down = APICaller(228000345) #하행 종점 | 외대.모현빌라
+    bus_locations_Up = APICaller(228000349) #상행 종점 | 한국외대종점
+    print('------------------------API 호출 끝!---------------------------')
+    
+    downList1 = [[],[],[],[],[]]
+    downList2 = []
+    for idx, inList in enumerate(downList1):
+        for bus in bus_numbers:
+            if bus_locations_Down[str(bus)].get('location') == str(4 - idx):
+                inList.append(bus)
+    for idx, inList in enumerate(downList1):
+        if idx == 1:
+            continue
+        downList2.append(inList)
+    print('하행버스-정류장 리스트화 (변환 전)')
+    print(downList1)
+    print('하행버스-정류장 리스트화 (변환 후)')
+    print(downList2)
 
+    print('상행버스-정류장 리스트화')
+    upList = [[],[],[],[],[]]
+    for idx, inList in enumerate(upList):
+        for bus in bus_numbers:
+            if bus_locations_Up[str(bus)].get('location') == str(idx):
+                inList.append(bus)
+    print(upList)
+        
 
+    context = {
+        'bus_numbers': bus_numbers,
+        'bus_stops': bus_stops,
+        'downList' : downList2,
+        'upList' : upList,
+    }
 
-
-# -----------------------------------------------------------------
-# 일반 함수 호출 영역입니다
-
-
-# API를 호출하는 함수. 아래와 같은 형식으로 반환함
-# { 
-#   버스번호1:{location:몇정거장전? , predict_time:예상시간?},
-#   버스번호2:{location:몇정거장전? , predict_time:예상시간?},
-#  } 
-def APICaller(stationId):
-    buses = Bus.objects.all()
-    serviceKey = settings.SERVICE_KEY
-    base_url = f'http://apis.data.go.kr/6410000/busarrivalservice/getBusArrivalItem?serviceKey={serviceKey}'
-
-    results = {}
-    for bus in buses:
-        params = {
-            'stationId': stationId,
-            'routeId': bus.routeId,
-            'staOrder': bus.staOrder
-        }
-        response = requests.get(base_url, params=params)
-        soup = BeautifulSoup(response.content, 'xml')
-
-        try:
-            locationNo1 = soup.find('locationNo1').text
-            predictTime1 = soup.find('predictTime1').text
-        except AttributeError as e:
-            print(f"Error: {e}")
-            locationNo1 = 'N/A'
-            predictTime1 = 'N/A'
-        results[bus.number] = {'location': locationNo1, 'predict_time': predictTime1}
-        # location      : 몇 번째 전?
-        # predict_time  : 예상 시간
-    return results
-
-
-
+    return render(request, 'bus_list.html', context)

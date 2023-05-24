@@ -1,42 +1,35 @@
 from django.shortcuts import render
-
-from .models import BusList, NowDay
+from .models import BusList
 from datetime import datetime
+from collections import defaultdict
 
-def busListView(request):
-    now_time = datetime.now().time()
+def bus_list_up(request):
+    now= datetime.now()
+    nowDay = now.weekday()
+    if nowDay < 5:
+        Buses = BusList.objects.filter(day_type = 3)
+    elif nowDay == 5:
+        Buses = BusList.objects.filter(day_type = 1)
+    elif nowDay == 6:
+        Buses = BusList.objects.filter(day_type = 2)
 
-    day_type = checkDay() # 요일 반환
+    buses_by_time = defaultdict(list)
 
-    buses = BusList.objects.filter(day_type=day_type).order_by('bus_time')
-    # day_type(요일)에 해당하는 것들만 필터링해줍니다.
-    # 이후 버스 시간 순서대로 정렬합니다.
-    # 버스를 현 시간 이후것들만 보여주고 싶다면 필터에 ', bus_time__gte=now_time' 를 추가하세요
-    
-    formatted_time = now_time.strftime("%H시 %M분") # 기준시간 표시를 위한 문자열 포맷팅
-    return render(request, 'bus_list.html', {'buses': buses, 'now_time' : formatted_time})
+    for bus in Buses:
+        hour = bus.bus_time.hour
+        minute = bus.bus_time.minute
+        nowTime = str(hour).zfill(2) + ":" + str(minute).zfill(2)
+        buses_by_time[nowTime].append(str(bus.bus_number))
+
+    timeListBefore = [[time, buses] for time, buses in buses_by_time.items()]
+    timeList = sorted(timeListBefore, key=lambda x: x[0])
 
 
-# 메인 페이지 잠깐 쓰려고 만들었습니다. 지우려면 지우세요.
+    context = {
+        'timeList' : timeList ,
+    }
+
+    return render(request, 'bus_list_up.html',context)
+
 def mainPage(request):
-    return render(request, 'mainpage.html')
-
-
-
-
-# -----------------------------------------------------------------
-# 일반 함수 호출 영역입니다
-
-
-# 주중, 토요일, 일요일 체크하여 day_type을 반환하는 함수
-def checkDay():
-    today = datetime.today().weekday()
-
-    if today < 5:  # 주중
-        day_type = NowDay.objects.get(day_type='WEEK')
-    elif today == 5:  # 토요일
-        day_type = NowDay.objects.get(day_type='SAT')
-    else:  # 일요일
-        day_type = NowDay.objects.get(day_type='SUN')    
-
-    return day_type
+    return render(request, 'mainPage.html')
