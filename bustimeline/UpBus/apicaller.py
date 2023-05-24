@@ -10,7 +10,7 @@ from .models import Bus
 #   버스번호2:{location:몇정거장전? , predict_time:예상시간?},
 # } 
 
-testMode = 1 # 0이면 실시간 데이터, 1이면 샘플 데이터
+testMode = 0 # 0이면 실시간 데이터, 1이면 샘플 데이터
 serviceKey = settings.SERVICE_KEY
 
 def APICaller(stationId):
