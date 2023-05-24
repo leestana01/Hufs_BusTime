@@ -8,12 +8,17 @@
   <!--'현재 시간 이후로 보기' 버튼 클릭 시 현재 시간으로 스크롤이 이동하여 더 편한 ux 제공이 가능합니다-->
   <!--api가 아닌 6팀의 버스 시간표 DB와 연동해 평일, 토요일, 일요일마다 버스 시간표가 달라집니다-->
   <style>
+    body{
+      background-color: beige;
+    }
+
     #main-container {
         display: flex;
         justify-content: center;
         align-items: center;
         min-height: 100vh;
         font-family: 'Main', sans-serif;
+        background-color: beige;
     }
 
     #container {
@@ -110,6 +115,7 @@
     }
 
     .bus-div-style {
+        
         font-size: 18px;
         background-color: whitesmoke;
         /* padding: 5px; */
@@ -218,6 +224,7 @@
               <!--<div>{{ busInfo.1 }}-->
 
               <!--busInfo.1(버스 리스트)에 해당하는 버스를 모두 div로 시간 옆에 나열하기 위해, 반복문-->
+              <div style="max-width: 500px;">
               <div class="bus-div-style" style="display:flex">
                 <img src="/static/버스 이미지.png" style="width:50px;">
                 <div class="bus-div-nums">
@@ -225,6 +232,7 @@
                   <span>{{ busDiv }}</span>
                   {% endfor %}
                 </div>
+              </div>
               </div>
 
               
