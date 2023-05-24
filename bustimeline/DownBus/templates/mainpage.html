@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
   <head>
     <title>버스 시간표 알리미</title>
     <style>
@@ -12,6 +13,33 @@
         margin: 0;
         background-color: beige;
       }
+=======
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>버스 시간표 알리미</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: beige;
+        }
+        
+        .circle {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            overflow: hidden;
+            
+        }
+>>>>>>> support_lsh
 
       .wrap {
         padding-top: 30px;
@@ -22,6 +50,7 @@
         justify-content: flex-start;
       }
 
+<<<<<<< HEAD
       .circle {
         width: 300px;
         height: 300px;
@@ -38,6 +67,54 @@
         object-fit: cover;
         object-position: center;
       }
+=======
+        .circle:before {
+            content: "";
+            position: absolute;
+            background-image: url('/bustimeline/bus.svg');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+        
+        .enter-url {
+            padding: 10px;
+            margin-top: 10px;
+            font-weight: bold;
+            font-family: 'Main';
+            background-color: white;
+            
+            border: 3px solid mediumaquamarine;
+            border-radius: 5px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        
+        .button {
+            width: 200px;
+            height: 50px;
+            margin-bottom: 30px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        @font-face {
+            font-family: 'Main';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+>>>>>>> support_lsh
 
       .circle:before {
         content: "";
@@ -74,6 +151,7 @@
         cursor: pointer;
       }
     </style>
+<<<<<<< HEAD
   </head>
 
   <body>
@@ -113,4 +191,28 @@
       </p>
     </div>
   </body>
+=======
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="js/clipboard.min.js"></script>
+</head>
+
+<!--png에서 svg로 이미지 변환 성공(모든 페이지 로고에서 적용 완료)!-->
+<body>
+    <img src="/static/logo.png" style="width:150px">
+    <div class="circle" style="background-image: url('/static/bus.svg');"></div>
+    <a href="/"><div class="enter-url">http://버스언제와.웹.한국</div></a>
+    <div class="button-container">
+        <button class="button" onclick="window.location.href='/bus-list-up/'">버스 시간표 보기</button>
+        <button class="button" onclick="window.location.href='/bus-list/'">버스 실시간 위치 보기</button>
+    </div>
+    
+    <ul style="font-family: Main; ">
+        <p style="margin-top: 10px;">멋쟁이 사자처럼 6팀!</p>
+        <li>[팀장](기획, 디자인) 임예람</li>
+        <li>[백엔드](api, 서버, model) 이수혁</li>
+        <li>[프론트](템플릿, DB, 디자인) 이나영</li>
+        <li>[백엔드](view, api 보조) 김준영</li>
+    </ul>
+</body>
+>>>>>>> support_lsh
 </html>

@@ -137,9 +137,23 @@
         padding: 8px;
         gap: 10px;
 
+<<<<<<< HEAD
         font-size: 18px;
         margin: 5px 10px; /* 여백 조정 */
       }
+=======
+    .bus-div-style {
+        display:flex;
+        background-color: whitesmoke;
+
+        margin: 5px 10px;
+
+        border-radius: 5px;
+        border: 2px solid rgb(194, 189, 189);
+
+        font-size: 18px;
+    }
+>>>>>>> support_lsh
 
       .bus-div-nums {
         margin-top: 5px;
@@ -258,6 +272,7 @@
 
                 <!--<div>{{ busInfo.1 }}-->
 
+<<<<<<< HEAD
                 <!--busInfo.1(버스 리스트)에 해당하는 버스를 모두 div로 시간 옆에 나열하기 위해, 반복문-->
                 <div style="max-width: 500px">
                   <div class="bus-div-style" style="display: flex">
@@ -268,6 +283,18 @@
                       {% endfor %}
                     </div>
                   </div>
+=======
+              <!--<div>{{ busInfo.1 }}-->
+
+              <!--busInfo.1(버스 리스트)에 해당하는 버스를 모두 div로 시간 옆에 나열하기 위해, 반복문-->
+              <div style="max-width: 500px;">
+              <div class="bus-div-style">
+                <img src="/static/bus_basic.svg" style="width:20px;">
+                <div class="bus-div-nums">
+                  {% for busDiv in busInfo.1 %}
+                  <span>{{ busDiv }}</span>
+                  {% endfor %}
+>>>>>>> support_lsh
                 </div>
 
                 <!--</div>여기까지 busInfo.1의 div-->
