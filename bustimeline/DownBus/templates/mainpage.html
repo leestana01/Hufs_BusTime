@@ -1,19 +1,5 @@
 <!DOCTYPE html>
 <html>
-<<<<<<< HEAD
-  <head>
-    <title>버스 시간표 알리미</title>
-    <style>
-      body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        margin: 0;
-        background-color: beige;
-      }
-=======
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>버스 시간표 알리미</title>
@@ -35,31 +21,11 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.25);
             position: relative;
             overflow: hidden;
             
         }
->>>>>>> support_lsh
-
-      .wrap {
-        padding-top: 30px;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        gap: 50px;
-        justify-content: flex-start;
-      }
-
-<<<<<<< HEAD
-      .circle {
-        width: 300px;
-        height: 300px;
-        border-radius: 50%;
-        background-size: cover;
-        background-position: center;
-        position: relative;
-        overflow: hidden;
-      }
 
       .circle img {
         width: 100%;
@@ -67,7 +33,7 @@
         object-fit: cover;
         object-position: center;
       }
-=======
+
         .circle:before {
             content: "";
             position: absolute;
@@ -98,12 +64,15 @@
         
         .button {
             width: 200px;
-            height: 50px;
+            height: 42px;
+            min-width: 250px;
             margin-bottom: 30px;
-            background-color: #333;
+            padding: 11px;
+            background: #3c486b;
+            background-color: #3c486b;
             color: #fff;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             font-size: 16px;
             cursor: pointer;
         }
@@ -114,87 +83,9 @@
             font-weight: normal;
             font-style: normal;
         }
->>>>>>> support_lsh
 
-      .circle:before {
-        content: "";
-        position: absolute;
-        top: -10px;
-        right: -10px;
-        bottom: -10px;
-        left: -10px;
-        background-image: url("/bustimeline/bus_adobe_express.svg");
-        background-size: cover;
-        background-position: center;
-        z-index: -1;
-      }
-
-      .button-container {
-        display: flex;
-        gap: 15px;
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .button {
-        background: #3c486b;
-        border-radius: 10px;
-        padding: 11px;
-        font-weight: 600;
-
-        min-width: 250px;
-        height: 42;
-        background-color: #3c486b;
-        color: #fff;
-        border: none;
-        font-size: 18px;
-        cursor: pointer;
-      }
     </style>
-<<<<<<< HEAD
   </head>
-
-  <body>
-    <div class="wrap">
-      <div style="display: flex; justify-content: center">
-        <a href="/"
-          ><img
-            src="/static/logo.png"
-            style="width: 200px; display: flex; justify-content: center"
-        /></a>
-      </div>
-      <div
-        class="circle"
-        style="
-          background-image: url('/static/bus_adobe_express.svg');
-          box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.25);
-        "
-      ></div>
-      <div class="button-container">
-        <button class="button" onclick="window.location.href='/bus-list-up/'">
-          버스 시간표 보기
-        </button>
-        <button class="button" onclick="window.location.href='/bus-list/'">
-          버스 실시간 위치 보기
-        </button>
-      </div>
-      <p
-        style="
-          position: fixed;
-          bottom: 10px;
-          font-size: 12px;
-          left: 50%;
-          transform: translateX(-50%);
-        "
-      >
-        멋쟁이사자처럼 6팀 - 임예람, 이수혁, 김준영, 이나영
-      </p>
-    </div>
-  </body>
-=======
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script type="text/javascript" src="js/clipboard.min.js"></script>
-</head>
 
 <!--png에서 svg로 이미지 변환 성공(모든 페이지 로고에서 적용 완료)!-->
 <body>
@@ -214,5 +105,4 @@
         <li>[백엔드](view, api 보조) 김준영</li>
     </ul>
 </body>
->>>>>>> support_lsh
 </html>
