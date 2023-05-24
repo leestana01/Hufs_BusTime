@@ -27,6 +27,8 @@
         .container1 {
             display: flex;
             align-items: center;
+            margin-top: -180px; 
+            margin-left: 10px;
         }
 
         .container2 {
@@ -39,11 +41,15 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            height: 100px; 
+            margin-left: 50px; 
+            margin-right: 30px;
         }
 
         .linear {
             display: flex;
             flex-direction: linear;
+            
         }
 
         .red-line {
@@ -58,6 +64,8 @@
             width: 10px;
             height: 120px;
             background-color: red;
+            
+            
         }
 
         .rectangle {
@@ -74,9 +82,7 @@
             
         }
 
-        .text {
-            font-size: 13px;
-        }
+        
 
 
 
@@ -94,32 +100,7 @@
             /* .circle 요소를 .red-line 요소 위로 올리기 */
         }
 
-        .likeEmpty {
-            width: 10px;
-            height: 30px;
-            border: 2px solid red;
-            margin: 60px 0;
-        }
-
-        .word-container {
-            position: absolute;
-            top: 14%;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .word {
-            font-size: 14px;
-            margin: 65px 0;
-        }
-
-        .text-container p {
-            margin: 5px 0;
-        }
-
+        
         .bus-div-style {
             font-size: 15px;
             background-color: whitesmoke;
@@ -139,10 +120,17 @@
 
         .bus-updiv-style{
             width: 200px;
+            
+            line-height:35px; 
+            margin-right: -40px;
         }
 
         .bus-station {
-            font-size: 15px;
+            width:80px;
+            font-size: 15px; 
+            font-weight: bold; 
+            font-family: 'Inter';
+            margin-left: 20px;
         }
 
         .bus-div-nums {
@@ -152,6 +140,35 @@
         font-weight: bold;
         font-family: 'Inter';
     }
+
+    .bus_list_logo {
+        width:180px; 
+        height:70px; 
+        margin-left: -50px; 
+        margin-top:-400px;
+    }
+
+    .text-font {
+        font-size: 20px; 
+        color:black; 
+        font-weight: bold;
+        margin-top: 10px; 
+        margin-left: 2px;
+    }
+
+    .text-font-2 {
+        font-size: 20px; 
+        color:black; 
+        font-weight: bold;
+        
+    }
+
+    .div_center_red_station_red {
+        display: flex; 
+        gap: 10px; 
+        width:650px;
+    }
+
 
     </style>
 
@@ -163,26 +180,24 @@
 <body>
 
     <div id="main-container">
-        <div id="container">
+
+
             <div class="container2">
                 <!--상행버스/하행버스 팻말과 노선 요소들의 수직 배치를 위한 컨테이너, 맨 마지막에 닫혀야 함-->
 
-                <div>
-                    <img src='/static/로고.png' style="width:180px; height:70px; margin-left: -50px; margin-top: -50px;">
-                </div>
 
                 <div>
-                    <p style="font-size: 20px; color:black; font-weight: bold; margin-top: 10px; margin-left: -30px;">현재 버스의 실시간 위치입니다!</p>
+                    <p class="text-font" style="margin-top:-250px;">현재 버스의 실시간 위치입니다!</p>
                 </div>
 
                 <!--'상행버스'와 '하행버스'를 적을 div 두개를 container1(수평배치)에 담음-->
-                <div id="container1" class="container1", style="margin-left: 20px; margin-right: 80px;">
+                <div class="container1" style="margin-top: -180px; margin-left: -10px;">
                     <div class="rectangle">
-                        <p class="text", style="font-size: 20px; font-weight: bold; font-family: 'Inter';">하행버스</p>
+                        <p class="text-font-2">하행버스</p>
 
                     </div>
                     <div class="rectangle">
-                        <p class="text", style="font-size: 20px; font-weight: bold; font-family: 'Inter';">상행버스</p>
+                        <p class="text-font-2">상행버스</p>
 
                     </div>
                 </div>
@@ -192,46 +207,50 @@
                 <!--프론트엔드 개발 끝!!!!-->
 
 
-                <div style="display:flex; width:120px; margin-right: 80px;">
+                <div style="display:flex; margin-left:-10px">
 
-                    <div class="column" style="margin-left: -4px; margin-right: 13px;">
+                    <div class="column">
                         <div class="red-line-long"></div>
                     </div>
 
-                    <div class="column" style="margin-left: 121px;">
+                    <div class="bus-station"></div>
+
+                    <div class="column">
                         <div class="red-line-long"></div>
                     </div>
 
                 </div>
 
                 <!--모든 정보를 담은 컨테이너 _ 수직정렬-->
-                <div class="column" , style="margin-left: 240px; margin: 0 auto">
+                <div class="column">
 
                     <!--div를 만들고 가로로 요소 배치(하행버스, 흰 동글, 정류장, 흰 동글, 상행버스)-->
-                    <div style="display: flex; gap: 10px; width:650px;" id="big DIV">
+                    <div class="div_center_red_station_red" id="big DIV1">
                         
 
-                        <div class="bus-updiv-style" style="text-align:end; line-height:35px; margin-right: -40px;">
+                        <div class="bus-updiv-style">
                             {% for value in downList.0 %}
-                            <div style="display: flex; margin-bottom: 0%; display: inline-block;">
-                                <span class="bus-div-style">
+                            <div style="display: flex; display: inline-block;">
+                                <span class="bus-div-style" style="text-align: end;">
                                     <img src="/static/버스 이미지_adobe_express.svg" style="width:20px;">
                                     {{ value }}</span> <!-- 버스 번호 -->
                             </div>
                             {% endfor %}
                         </div>
 
-                        <div style="display:flex; flex-grow: 0; justify-content:center"> <!-- 한 세트의 요소-->
+                        <div style="display:flex;"> <!-- 한 세트의 요소-->
 
-                            <div class="column" style="height: 100px; margin-left: 50px; margin-right: 30px;">
+                            <div class="column">
                                 <div class="red-line-long">
                                     <div class="circle"></div>
                                 </div>
                             </div>
 
-                            <div class="bus-station" style="margin-right: 35px; padding-left: 10px; font-weight: bold; font-family: 'Inter';"> 파란지붕 </div>
+                            
 
-                            <div class="column" style="height: 100px;;">
+                            <div class="bus-station"> 파란지붕 </div>
+
+                            <div class="column">
                                 <div class="red-line-long">
                                     <div class="circle"></div>
                                 </div>
@@ -241,9 +260,9 @@
 
                         <!--그리고 상행버스의 파란지붕 정류장 버스 리스트를 담는 div-->
 
-                        <div class="bus-updiv-style" style="text-align:start; line-height:35px">
+                        <div class="bus-updiv-style" style="text-align:start;">
                             {% for value in upList.0 %}
-                            <div style="display: flex; margin-bottom: 0%; display: inline-block;">
+                            <div style="display: flex; display: inline-block;">
                                 <span class="bus-div-style">
                                     <img src="/static/버스 이미지_adobe_express.svg" style="width:20px;">
                                     {{ value }}</span>
@@ -262,20 +281,20 @@
                     <!--------------------------------이 밑으로 코드 반복생성----------------------------------------------->
 
                     <!--두번째 단락(도서관 부분)-->
-                    <div style="display: flex; gap: 10px; width:650px;" id="big DIV">
+                    <div class="div_center_red_station_red" id="big DIV2">
 
-                        <div class="bus-updiv-style", style="margin-right: -40px;"></div>
-
-                        <div style="display:flex; flex-grow: 0; justify-content:center">
+                        <div class="bus-updiv-style"></div>
+                        
+                        <div style="display:flex;">
                             
-                            <div class="column" style="margin-left: 50px; margin-right: 30px;">
+                            <div class="column">
                                 <div class="red-line-long">
                                 </div>
                             </div>
 
-                            <div class="bus-station" style="margin-right: 30px; font-weight: bold; font-family: 'Inter';">외대도서관</div>
+                            <div class="bus-station">외대도서관</div>
 
-                            <div class="container2">
+                            <div class="column">
                                 <div class="red-line-long">
                                     <div class="circle"></div>
                                 </div>
@@ -283,9 +302,9 @@
 
                         </div>
 
-                        <div class="bus-updiv-style" style="text-align:start; line-height:35px">
+                        <div class="bus-updiv-style" style="text-align:start;">
                             {% for value in upList.1 %}
-                            <div class="linear" style="margin-bottom: 0%; display: inline-block;">
+                            <div class="linear" style="display: inline-block;">
                                 <span class="bus-div-style">
                                     <img src="/static/버스 이미지_adobe_express.svg" style="width:20px;">
                                     {{ value }}</span>
@@ -299,9 +318,9 @@
 
                     <!--세번째 단락(기숙사 부분)-->
 
-                    <div style="display: flex; gap: 10px; width:650px;" id="big DIV">
+                    <div class="div_center_red_station_red" id="big DIV3">
 
-                        <div class="bus-updiv-style" style="text-align:end; line-height:35px; margin-right: -40px;">
+                        <div class="bus-updiv-style" style="text-align:end;">
                             {% for value in downList.1 %}
                             <div style="display: flex; display: inline-block;">
                                 <span class="bus-div-style">
@@ -311,15 +330,15 @@
                             {% endfor %}
                         </div>
 
-                        <div style="display:flex; flex-grow:0; justify-content:center">
+                        <div style="display:flex;">
 
-                            <div class="column" style="margin-left: 50px; margin-right: 30px;">
+                            <div class="column">
                                 <div class="red-line-long">
                                     <div class="circle"></div>
                                 </div>
                             </div>
 
-                            <div class="bus-station" style="margin-right: 30px; font-weight: bold; font-family: 'Inter';">외대기숙사</div>
+                            <div class="bus-station">외대기숙사</div>
 
                             <div class="column">
                                 <div class="red-line-long">
@@ -329,7 +348,7 @@
 
                         </div>
 
-                        <div class="bus-updiv-style" style="text-align:start; line-height:35px">
+                        <div class="bus-updiv-style" style="text-align:start;">
                             {% for value in upList.2 %}
                             <div style="display: flex; display: inline-block;">
                                 <span class="bus-div-style">
@@ -343,11 +362,11 @@
 
                     <!--네번째 단락(모현사거리 부분)-->
 
-                    <div style="display: flex; gap: 10px; width:650px; line-height:35px;" id="big DIV">
+                    <div class="div_center_red_station_red" id="big DIV4">
 
-                        <div class="bus-updiv-style" style="text-align:end; margin-right: -40px;">
+                        <div class="bus-updiv-style" style="text-align:end;">
                             {% for value in downList.2 %}
-                            <div style="display: flex; margin-bottom: 0%; display: inline-block; line-height:35px">
+                            <div style="display: flex; display: inline-block;">
                                 
                                 <span class="bus-div-style">
                                     <img src="/static/버스 이미지_adobe_express.svg" style="width:24px;">
@@ -358,15 +377,15 @@
                             {% endfor %}
                         </div>
 
-                        <div style="display:flex; flex-grow:0; justify-content:center">
+                        <div style="display:flex;">
 
-                            <div class="column" style="margin-left: 50px; margin-right: 30px;">
+                            <div class="column">
                                 <div class="red-line-long">
                                     <div class="circle"></div>
                                 </div>
                             </div>
 
-                            <div class="bus-station" style="margin-right: 30px; font-weight: bold; font-family: 'Inter';">모현사거리</div>
+                            <div class="bus-station">모현사거리</div>
 
                             <div class="column">
                                 <div class="red-line-long">
@@ -376,7 +395,7 @@
 
                         </div>
 
-                        <div class="bus-updiv-style" style="text-align:start; line-height:35px">
+                        <div class="bus-updiv-style" style="text-align:start;">
                             {% for value in upList.3 %}
                             <div style="display: flex; display:inline-block">
                                 <span class="bus-div-style">
@@ -390,9 +409,9 @@
 
                     <!--다섯번째 단락(외대사거리 부분)-->
 
-                    <div style="display: flex; gap: 10px; width:650px; line-height:35px" id="big DIV">
+                    <div class="div_center_red_station_red" id="big DIV5">
 
-                        <div class="bus-updiv-style" style="text-align:end; margin-right: -40px;">
+                        <div class="bus-updiv-style" style="text-align:end;">
                             {% for value in downList.3 %}
                             <div style="display: flex; display:inline-block">
                                 <span class="bus-div-style">
@@ -403,15 +422,15 @@
                         </div>
 
 
-                        <div style="display:flex; flex-grow:0; justify-content:center">
+                        <div style="display:flex;">
 
-                            <div class="column" style="margin-left: 50px; margin-right: 30px;">
+                            <div class="column">
                                 <div class="red-line-long">
                                     <div class="circle"></div>
                                 </div>
                             </div>
 
-                            <div class="bus-station" style="margin-right: 30px; font-weight: bold; font-family: 'Inter';">외대사거리</div>
+                            <div class="bus-station">외대사거리</div>
 
                             <div class="column">
                                 <div class="red-line-long">
@@ -421,7 +440,7 @@
 
                         </div>
 
-                        <div class="bus-updiv-style" style="text-align:start; line-height:35px">
+                        <div class="bus-updiv-style" style="text-align:start;">
                             {% for value in upList.4 %}
                             <div style="display: flex; display:inline-block">
                                 <span class="bus-div-style">
