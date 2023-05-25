@@ -25,6 +25,7 @@
         .container1 {
             display: flex;
             align-items: center;
+            gap: 10px;
         }
 
       .container2 {
@@ -89,20 +90,22 @@
 
         
         .bus-div-style {
-            display: flex;
-            width:60px;
-            height: 20px;
-            padding: 5px;
-            align-items: center;
-            justify-content: space-between;
-            background-color: whitesmoke;
-            
-            border-radius: 5px;
-            border: 2px solid rgb(194, 189, 189);
-            
-            font-size: 15px;
-            font-weight: bold; 
-            font-family: 'Inter';
+          display: flex;
+          align-items: center;
+          background: #ffffff;
+          box-shadow: 0px 0px 4px rgba(60, 72, 107, 0.25);
+          border-radius: 10px;
+          padding: 8px;
+          gap: 10px;
+
+          font-size: 18px;
+          margin: 5px 10px; /* 여백 조정 */
+
+          width: 70px;
+          height: 20px;
+          /*width랑 height 직접 지정하는 방식으로 여백 줄여보기 */
+          font-weight: bold;
+          font-family: "Inter";
         }
 
         .bus-updiv-style{
@@ -334,7 +337,7 @@
                             {% for value in upList.3 %}
                             <div style="display: flex; display:inline-block">
                                 <span class="bus-div-style">
-                                    <img src="/static/bus_adobe_express.svg" style="width:20px;">
+                                  <img src="/static/bus.svg" class="bus-img">
                                     {{ value }}</span>
                             </div>
                             {% endfor %}
@@ -350,7 +353,7 @@
                             {% for value in downList.3 %}
                             <div style="display: flex; display:inline-block">
                                 <span class="bus-div-style">
-                                    <img src="/static/bus_adobe_express.svg" style="width:20px;">
+                                  <img src="/static/bus.svg" class="bus-img">
                                     {{ value }}</span>
                             </div>
                             {% endfor %}
@@ -376,7 +379,7 @@
                             {% for value in upList.4 %}
                             <div style="display: flex; display:inline-block">
                                 <span class="bus-div-style">
-                                    <img src="/static/bus_adobe_express.svg" style="width:20px;">
+                                  <img src="/static/bus.svg" class="bus-img">
                                     {{ value }}</span>
                             </div>
                             {% endfor %}
