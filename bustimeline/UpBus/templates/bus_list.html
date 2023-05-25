@@ -72,6 +72,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            font-family: 'Main';
         }
 
       .circle {
@@ -387,8 +388,13 @@
 
                     </div>
                     <!--여기까지 bid DIV-->
-
-
+                <div class="rectangle column" 
+                style="width: 250px; height:auto; border:3px solid #3c486b; display:flex;">
+                  <h3> 상행 버스 남은 시간</h3>
+                  {% for bus, info in upInfo.items %}
+                  <p>{{bus}} | {{info.location}}번째 전 ({{info.predict_time}}분)</p>
+                  {% endfor %}
+                </div>
                 </div>
             </div>
         </div>

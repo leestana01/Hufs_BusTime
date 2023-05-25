@@ -14,6 +14,7 @@ def bus_list(request):
     # 실시간 버스 위치 정보를 저장할 딕셔너리
     bus_locations_Down = APICaller(228000345) #하행 종점 | 외대.모현빌라
     bus_locations_Up = APICaller(228000349) #상행 종점 | 한국외대종점
+    bus_locations_info = APICaller(228000352)
     print('------------------------API 호출 끝!---------------------------')
     
     downList1 = [[],[],[],[],[]]
@@ -45,6 +46,7 @@ def bus_list(request):
         'bus_stops': bus_stops,
         'downList' : downList2,
         'upList' : upList,
+        'upInfo' : bus_locations_info,
     }
 
     return render(request, 'bus_list.html', context)
