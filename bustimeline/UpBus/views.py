@@ -32,21 +32,24 @@ def bus_list(request):
     print('하행버스-정류장 리스트화 (변환 후)')
     print(downList2)
 
-    print('상행버스-정류장 리스트화')
     upList = [[],[],[],[],[]]
     for idx, inList in enumerate(upList):
         for bus in bus_numbers:
             if bus_locations_Up[str(bus)].get('location') == str(idx):
                 inList.append(bus)
+    print('상행버스-정류장 리스트화')
     print(upList)
-        
+
+    upInfo = sorted(bus_locations_info.items(), key=lambda x: x[1]['predict_time'])
+    print('정렬된 남은 버스 시간표')
+    print(upInfo)
 
     context = {
         'bus_numbers': bus_numbers,
         'bus_stops': bus_stops,
-        'downList' : downList2,
+        'downList' : downList1,
         'upList' : upList,
-        'upInfo' : bus_locations_info,
+        'upInfo' : upInfo,
     }
 
     return render(request, 'bus_list.html', context)

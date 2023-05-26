@@ -243,7 +243,15 @@
 
                 <!--두번째 단락(도서관 부분)-->
                 <div class="div_center_red_station_red" id="big DIV2">
-                    <div class="bus-updiv-style"></div>
+
+                    <div class="bus-updiv-style" style="justify-content: right;">
+                        {% for value in downList.1 %}
+                        <div class="bus-div-style">
+                            <img class="bus-img">
+                            <p>{{ value }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
 
                     <div style="display: flex">
                         <div class="column">
@@ -276,7 +284,7 @@
                 <div class="div_center_red_station_red" id="big DIV3">
 
                     <div class="bus-updiv-style" style="justify-content: right;">
-                        {% for value in downList.1 %}
+                        {% for value in downList.2 %}
                         <div class="bus-div-style">
                             <img src="/static/bus.svg" class="bus-img">
                             {{ value }}
@@ -316,7 +324,7 @@
                 <div class="div_center_red_station_red" id="big DIV4">
 
                     <div class="bus-updiv-style" style="justify-content: right;">
-                        {% for value in downList.2 %}
+                        {% for value in downList.3 %}
                         <div class="bus-div-style">
                             <img src="/static/bus.svg" class="bus-img">
                             {{ value }}
@@ -340,12 +348,11 @@
                         </div>
                     </div>
 
-                    <div class="bus-updiv-style" style="text-align:start;">
+                    <div class="bus-updiv-style" style="justify-content: left;">
                         {% for value in upList.3 %}
-                        <div style="display: flex; display:inline-block">
-                            <span class="bus-div-style">
-                                <img src="/static/bus.svg" class="bus-img">
-                                {{ value }}</span>
+                        <div class="bus-div-style">
+                            <img src="/static/bus.svg" class="bus-img">
+                            {{ value }}
                         </div>
                         {% endfor %}
                     </div>
@@ -356,12 +363,11 @@
 
                 <div class="div_center_red_station_red" id="big DIV5">
 
-                    <div class="bus-updiv-style" style="text-align:end;">
-                        {% for value in downList.3 %}
-                        <div style="display: flex; display:inline-block">
-                            <span class="bus-div-style">
-                                <img src="/static/bus.svg" class="bus-img">
-                                {{ value }}</span>
+                    <div class="bus-updiv-style" style="justify-content: right;">
+                        {% for value in downList.4 %}
+                        <div class="bus-div-style">
+                            <img src="/static/bus.svg" class="bus-img">
+                            {{ value }}
                         </div>
                         {% endfor %}
                     </div>
@@ -382,12 +388,11 @@
                         </div>
                     </div>
 
-                    <div class="bus-updiv-style" style="text-align:start;">
+                    <div class="bus-updiv-style" style="justify-content: left;">
                         {% for value in upList.4 %}
-                        <div style="display: flex; display:inline-block">
-                            <span class="bus-div-style">
-                                <img src="/static/bus.svg" class="bus-img">
-                                {{ value }}</span>
+                        <div class="bus-div-style">
+                            <img src="/static/bus.svg" class="bus-img">
+                            {{ value }}
                         </div>
                         {% endfor %}
                     </div>
@@ -396,8 +401,8 @@
                 <!--여기까지 bid DIV-->
                 <div class="rectangle column" style="width: 250px; height:auto; border:3px solid #3c486b; display:flex;">
                     <h3> 상행 버스 남은 시간</h3>
-                    {% for bus, info in upInfo.items %}
-                    <p>{{bus}} | {{info.location}}번째 전 ({{info.predict_time}}분)</p>
+                    {% for busInfo in upInfo %}
+                    <p>{{busInfo.0}} | {{busInfo.1.location}}번째 전 ({{busInfo.1.predict_time}}분)</p>
                     {% endfor %}
                 </div>
             </div>
