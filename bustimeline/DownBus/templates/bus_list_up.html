@@ -179,6 +179,13 @@
         animation: shine 2s infinite;
       }
 
+      #ad-banner {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+
       @keyframes shine {
         to {
           transform: translateX(100%);
@@ -275,11 +282,21 @@
                 <!--</div>여기까지 busInfo.1의 div-->
               </div>
               {% endfor %}
+              <div style="height:50px;"></div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    
+    <footer id="ad-banner">
+      <ins class="kakao_ad_area" style="display:none;"
+      data-ad-unit = "DAN-szeh65EssGEgvYuO"
+      data-ad-width = "320"
+      data-ad-height = "50"></ins>
+      <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+    </footer>
 
     <script>
       function scrollToCurrentTime() {
