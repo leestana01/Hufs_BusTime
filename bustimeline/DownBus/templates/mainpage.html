@@ -1,116 +1,114 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>버스 시간표 알리미</title>
     <style>
-      body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        margin: 0;
-        background-color: beige;
-      }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            gap: 30px;
+            background-color: beige;
+        }
 
-      .wrap {
-        padding-top: 30px;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        gap: 50px;
-        justify-content: flex-start;
-      }
+        .circle {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.25);
+            position: relative;
+            overflow: hidden;
 
-      .circle {
-        width: 300px;
-        height: 300px;
-        border-radius: 50%;
-        background-size: cover;
-        background-position: center;
-        position: relative;
-        overflow: hidden;
-      }
+        }
 
-      .circle img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-      }
+        .circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
 
-      .circle:before {
-        content: "";
-        position: absolute;
-        top: -10px;
-        right: -10px;
-        bottom: -10px;
-        left: -10px;
-        background-image: url("/bustimeline/bus_adobe_express.svg");
-        background-size: cover;
-        background-position: center;
-        z-index: -1;
-      }
+        .circle:before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            bottom: -10px;
+            left: -10px;
+            background-image: url('/bustimeline/bus.svg');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
 
-      .button-container {
-        display: flex;
-        gap: 15px;
-        flex-direction: column;
-        align-items: center;
-      }
+        .button-container {
+            display: flex;
+            gap: 15px;
+            flex-direction: column;
+            align-items: center;
+        }
 
-      .button {
-        background: #3c486b;
-        border-radius: 10px;
-        padding: 11px;
-        font-weight: 600;
+        .button {
+            background: #3c486b;
+            border-radius: 10px;
+            padding: 11px;
+            font-weight: 600;
 
-        min-width: 250px;
-        height: 42;
-        background-color: #3c486b;
-        color: #fff;
-        border: none;
-        font-size: 18px;
-        cursor: pointer;
-      }
+            min-width: 250px;
+            height: 42;
+            background-color: #3c486b;
+            color: #fff;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+
+        #ad-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        @font-face {
+            font-family: 'Main';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
     </style>
-  </head>
+</head>
 
-  <body>
-    <div class="wrap">
-      <div style="display: flex; justify-content: center">
-        <a href="/"
-          ><img
-            src="/static/logo.png"
-            style="width: 200px; display: flex; justify-content: center"
-        /></a>
-      </div>
-      <div
-        class="circle"
-        style="
-          background-image: url('/static/bus_adobe_express.svg');
-          box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.25);
-        "
-      ></div>
-      <div class="button-container">
-        <button class="button" onclick="window.location.href='/bus-list-up/'">
-          버스 시간표 보기
-        </button>
-        <button class="button" onclick="window.location.href='/bus-list/'">
-          버스 실시간 위치 보기
-        </button>
-      </div>
-      <p
-        style="
-          position: fixed;
-          bottom: 10px;
-          font-size: 12px;
-          left: 50%;
-          transform: translateX(-50%);
-        "
-      >
-        멋쟁이사자처럼 6팀 - 임예람, 이수혁, 김준영, 이나영
-      </p>
+<!--png에서 svg로 이미지 변환 성공(모든 페이지 로고에서 적용 완료)!-->
+
+<body>
+    <img src="/static/logo.png" style="width:150px">
+    <div class="circle" style="background-image: url('/static/bus.svg');"></div>
+    <div class="button-container">
+        <button class="button" onclick="window.location.href='/bus-list-up/'">버스 시간표 보기</button>
+        <button class="button" onclick="window.location.href='/bus-list/'">버스 실시간 위치 보기</button>
     </div>
-  </body>
+
+    <ul style="font-family: Main; ">
+        <p style="margin-top: 10px;">멋쟁이 사자처럼 6팀!</p>
+        <li>[팀장](기획, 디자인, 프론트) 임예람</li>
+        <li>[백엔드](api, 서버, model) 이수혁</li>
+        <li>[프론트](템플릿, DB 가공, 디자인) 이나영</li>
+        <li>[백엔드](view, api 보조) 김준영</li>
+    </ul>
+
+    <footer id="ad-banner">
+        <ins class="kakao_ad_area" style="display:none;" data-ad-unit="DAN-szeh65EssGEgvYuO" data-ad-width="320" data-ad-height="50"></ins>
+        <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+    </footer>
+</body>
+
 </html>

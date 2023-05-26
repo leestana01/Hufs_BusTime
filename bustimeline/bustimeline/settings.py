@@ -26,9 +26,16 @@ SERVICE_KEY = os.getenv("SERVICE_KEY")
 SECRET_KEY = 'django-insecure-7=n!y#gkyb2@r_0n#3@-47_rhw&!&gh!!d==igeh=5(@db9j@5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '203.253.76.163',
+    'likelionglobal.gonetis.com',
+    'xn--hk3b25itxctpl8e.xn--yq5b.xn--3e0b707e',
+    'xn--hk3b25itxctpl8e.xn--vk1b528abpbf6x.xn--yq5b.xn--3e0b707e',
+    
+    '127.0.0.1',
+]
 
 
 # Application definition
