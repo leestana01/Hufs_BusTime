@@ -9,11 +9,11 @@
     <meta name="viewport" content="width=650px">
     <title>실시간 버스 위치</title>
     <style>
-      body {
-        background-color: beige;
-        display: flex;
-        flex-direction: column;
-      }
+        body {
+            background-color: beige;
+            display: flex;
+            flex-direction: column;
+        }
 
         #main-container {
             display: flex;
@@ -28,11 +28,11 @@
             gap: 10px;
         }
 
-      .container2 {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
+        .container2 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
         .column {
             display: flex;
@@ -41,17 +41,17 @@
             height: 100px;
         }
 
-      .linear {
-        display: flex;
-        flex-direction: linear;
-      }
+        .linear {
+            display: flex;
+            flex-direction: linear;
+        }
 
-      .red-line {
-        position: relative;
-        width: 10px;
-        height: 100%;
-        background-color: red;
-      }
+        .red-line {
+            position: relative;
+            width: 10px;
+            height: 100%;
+            background-color: red;
+        }
 
         .red-line-long {
             position: relative;
@@ -75,344 +75,339 @@
             font-family: 'Main';
         }
 
-      .circle {
-        position: absolute;
-        width: 15px;
-        height: 15px;
-        border-radius: 50%;
-        border: 5px solid red;
-        background-color: white;
-        top: 0%;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 1;
-        /* .circle 요소를 .red-line 요소 위로 올리기 */
-      }
-
-        
-        .bus-div-style {
-          display: flex;
-          align-items: center;
-          background: #ffffff;
-          box-shadow: 0px 0px 4px rgba(60, 72, 107, 0.25);
-          border-radius: 10px;
-          padding: 8px;
-          gap: 10px;
-
-          font-size: 18px;
-          margin: 5px 10px; /* 여백 조정 */
-
-          width: 70px;
-          height: 20px;
-          /*width랑 height 직접 지정하는 방식으로 여백 줄여보기 */
-          font-weight: bold;
-          font-family: "Inter";
+        .circle {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            border: 5px solid red;
+            background-color: white;
+            top: 0%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+            /* .circle 요소를 .red-line 요소 위로 올리기 */
         }
 
-        .bus-updiv-style{
-            display:flex;
+
+        .bus-div-style {
+            display: flex;
+            align-items: center;
+            background: #ffffff;
+            box-shadow: 0px 0px 4px rgba(60, 72, 107, 0.25);
+            border-radius: 10px;
+            padding: 8px;
+            gap: 10px;
+
+            font-size: 18px;
+            margin: 5px 10px;
+            /* 여백 조정 */
+
+            width: 70px;
+            height: 20px;
+            /*width랑 height 직접 지정하는 방식으로 여백 줄여보기 */
+            font-weight: bold;
+            font-family: "Inter";
+        }
+
+        .bus-updiv-style {
+            display: flex;
             width: 200px;
         }
 
         .bus-station {
-            width:100px;
-            font-size: 15px; 
+            width: 100px;
+            font-size: 15px;
             text-align: center;
-            font-weight: bold; 
+            font-weight: bold;
             font-family: 'Main';
         }
 
         .text-font-2 {
-            font-size: 20px; 
-            color:black; 
+            font-size: 20px;
+            color: black;
             font-weight: bold;
             font-family: 'Main';
         }
 
         .div_center_red_station_red {
-            display: flex; 
+            display: flex;
             justify-content: center;
-            width:650px;
+            width: 650px;
         }
 
         .bus-img {
-            width:20px;
-            content:url("/static/bus_basic.svg");
+            width: 20px;
+            content: url("/static/bus_basic.svg");
         }
 
-      #ad-banner {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-      }
-      
+        #ad-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
         @font-face {
             font-family: 'Main';
             src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
             font-weight: normal;
             font-style: normal;
         }
-        
+
         @font-face {
-        font-family: 'Inter';
-        src: url('https://fonts.googleapis.com/css2?family=Inter&display=swap') format('woff2');
-        font-weight: normal;
-        font-style: normal;
+            font-family: 'Inter';
+            src: url('https://fonts.googleapis.com/css2?family=Inter&display=swap') format('woff2');
+            font-weight: normal;
+            font-style: normal;
         }
-
-
     </style>
 </head>
 
-  <body>
+<body>
     <div id="main-container">
-      <div class="container2">
+        <div class="container2">
 
-        <a href="/"><img src="/static/logo.png" style="width:200px; height:100px"></a>
-        <h3 style="font-family: 'Main';">🎈 실시간 위치</h3>
+            <a href="/"><img src="/static/logo.png" style="width:200px; height:100px"></a>
+            <h3 style="font-family: 'Main';">🎈 실시간 위치</h3>
 
-        <div class="container1">
-          <div class="rectangle">
-            <p class="text-font-2">하행버스</p>
-          </div>
-          <div class="rectangle">
-            <p class="text-font-2">상행버스</p>
-          </div>
-        </div>
-        <!--container1 끝-->
-
-        <!--프론트엔드 개발 끝!!!!-->
-
-
-                <div style="display:flex;">
-
-                    <div class="red-line-long"></div>
-                    <div class="bus-station"></div>
-                    <div class="red-line-long"></div>
-
+            <div class="container1">
+                <div class="rectangle">
+                    <p class="text-font-2">하행버스</p>
                 </div>
-
-                <!--모든 정보를 담은 컨테이너 _ 수직정렬-->
-                <div class="column">
-
-                    <!--div를 만들고 가로로 요소 배치(하행버스, 흰 동글, 정류장, 흰 동글, 상행버스)-->
-                    <div class="div_center_red_station_red" id="big DIV1">
-                        
-                        <div class="bus-updiv-style" style="justify-content: right;">
-                            {% for value in downList.0 %}
-                            <div class="bus-div-style">
-                                <img class="bus-img">
-                                <p>{{ value }}</p>
-                            </div>
-                            {% endfor %}
-                        </div>
-
-            <div style="display: flex">
-              <!-- 한 세트의 요소-->
-
-              <div class="column">
-                <div class="red-line-long">
-                  <div class="circle"></div>
+                <div class="rectangle">
+                    <p class="text-font-2">상행버스</p>
                 </div>
-              </div>
-
-              <div class="bus-station">파란지붕</div>
-
-              <div class="column">
-                <div class="red-line-long">
-                  <div class="circle"></div>
-                </div>
-              </div>
             </div>
+            <!--container1 끝-->
 
-            <!--그리고 상행버스의 파란지붕 정류장 버스 리스트를 담는 div-->
+            <!--프론트엔드 개발 끝!!!!-->
 
-                        <div class="bus-updiv-style" style="justify-content: left;">
-                            {% for value in upList.0 %}
-                            <div class="bus-div-style">
-                                <img src="/static/bus.svg" class="bus-img">
-                                {{ value }}
-                            </div>
-                            {% endfor %}
-                        </div>
-                        
-                    </div>
-                    <!--container2는 아직 안닫힘-->
 
-          <!--------------------------------이 밑으로 코드 반복생성----------------------------------------------->
+            <div style="display:flex;">
 
-          <!--두번째 단락(도서관 부분)-->
-          <div class="div_center_red_station_red" id="big DIV2">
-            <div class="bus-updiv-style"></div>
-
-            <div style="display: flex">
-              <div class="column">
                 <div class="red-line-long"></div>
-              </div>
+                <div class="bus-station"></div>
+                <div class="red-line-long"></div>
 
-              <div class="bus-station">외대도서관</div>
-
-              <div class="column">
-                <div class="red-line-long">
-                  <div class="circle"></div>
-                </div>
-              </div>
             </div>
 
-                        <div class="bus-updiv-style" style="justify-content: left;">
-                            {% for value in upList.1 %}
-                            <div class="bus-div-style">
-                                <img src="/static/bus.svg" class="bus-img">
-                                {{ value }}
-                            </div>
-                            {% endfor %}
+            <!--모든 정보를 담은 컨테이너 _ 수직정렬-->
+            <div class="column">
+
+                <!--div를 만들고 가로로 요소 배치(하행버스, 흰 동글, 정류장, 흰 동글, 상행버스)-->
+                <div class="div_center_red_station_red" id="big DIV1">
+
+                    <div class="bus-updiv-style" style="justify-content: right;">
+                        {% for value in downList.0 %}
+                        <div class="bus-div-style">
+                            <img class="bus-img">
+                            <p>{{ value }}</p>
                         </div>
-
-
+                        {% endfor %}
                     </div>
 
-          <!--세번째 단락(기숙사 부분)-->
+                    <div style="display: flex">
+                        <!-- 한 세트의 요소-->
 
-                    <div class="div_center_red_station_red" id="big DIV3">
-
-                        <div class="bus-updiv-style" style="justify-content: right;">
-                            {% for value in downList.1 %}
-                            <div class="bus-div-style">
-                                <img src="/static/bus.svg" class="bus-img">
-                                {{ value }}
+                        <div class="column">
+                            <div class="red-line-long">
+                                <div class="circle"></div>
                             </div>
-                            {% endfor %}
                         </div>
 
-            <div style="display: flex">
-              <div class="column">
-                <div class="red-line-long">
-                  <div class="circle"></div>
-                </div>
-              </div>
+                        <div class="bus-station">파란지붕</div>
 
-              <div class="bus-station">외대기숙사</div>
-
-              <div class="column">
-                <div class="red-line-long">
-                  <div class="circle"></div>
-                </div>
-              </div>
-            </div>
-
-                        <div class="bus-updiv-style" style="justify-content: left;">
-                            {% for value in upList.2 %}
-                            <div class="bus-div-style">
-                                <img src="/static/bus.svg" class="bus-img">
-                                {{ value }}
+                        <div class="column">
+                            <div class="red-line-long">
+                                <div class="circle"></div>
                             </div>
-                            {% endfor %}
                         </div>
-
                     </div>
 
-          <!--네번째 단락(모현사거리 부분)-->
+                    <!--그리고 상행버스의 파란지붕 정류장 버스 리스트를 담는 div-->
 
-                    <div class="div_center_red_station_red" id="big DIV4">
+                    <div class="bus-updiv-style" style="justify-content: left;">
+                        {% for value in upList.0 %}
+                        <div class="bus-div-style">
+                            <img src="/static/bus.svg" class="bus-img">
+                            {{ value }}
+                        </div>
+                        {% endfor %}
+                    </div>
 
-                        <div class="bus-updiv-style" style="justify-content: right;">
-                            {% for value in downList.2 %}
-                            <div class="bus-div-style">
+                </div>
+                <!--container2는 아직 안닫힘-->
+
+                <!--------------------------------이 밑으로 코드 반복생성----------------------------------------------->
+
+                <!--두번째 단락(도서관 부분)-->
+                <div class="div_center_red_station_red" id="big DIV2">
+                    <div class="bus-updiv-style"></div>
+
+                    <div style="display: flex">
+                        <div class="column">
+                            <div class="red-line-long"></div>
+                        </div>
+
+                        <div class="bus-station">외대도서관</div>
+
+                        <div class="column">
+                            <div class="red-line-long">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bus-updiv-style" style="justify-content: left;">
+                        {% for value in upList.1 %}
+                        <div class="bus-div-style">
+                            <img src="/static/bus.svg" class="bus-img">
+                            {{ value }}
+                        </div>
+                        {% endfor %}
+                    </div>
+
+
+                </div>
+
+                <!--세번째 단락(기숙사 부분)-->
+
+                <div class="div_center_red_station_red" id="big DIV3">
+
+                    <div class="bus-updiv-style" style="justify-content: right;">
+                        {% for value in downList.1 %}
+                        <div class="bus-div-style">
+                            <img src="/static/bus.svg" class="bus-img">
+                            {{ value }}
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <div style="display: flex">
+                        <div class="column">
+                            <div class="red-line-long">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+
+                        <div class="bus-station">외대기숙사</div>
+
+                        <div class="column">
+                            <div class="red-line-long">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bus-updiv-style" style="justify-content: left;">
+                        {% for value in upList.2 %}
+                        <div class="bus-div-style">
+                            <img src="/static/bus.svg" class="bus-img">
+                            {{ value }}
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+
+                <!--네번째 단락(모현사거리 부분)-->
+
+                <div class="div_center_red_station_red" id="big DIV4">
+
+                    <div class="bus-updiv-style" style="justify-content: right;">
+                        {% for value in downList.2 %}
+                        <div class="bus-div-style">
+                            <img src="/static/bus.svg" class="bus-img">
+                            {{ value }}
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <div style="display: flex">
+                        <div class="column">
+                            <div class="red-line-long">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+
+                        <div class="bus-station">모현사거리</div>
+
+                        <div class="column">
+                            <div class="red-line-long">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bus-updiv-style" style="text-align:start;">
+                        {% for value in upList.3 %}
+                        <div style="display: flex; display:inline-block">
+                            <span class="bus-div-style">
                                 <img src="/static/bus.svg" class="bus-img">
-                                {{ value }}
-                            </div>
-                            {% endfor %}
+                                {{ value }}</span>
                         </div>
-
-            <div style="display: flex">
-              <div class="column">
-                <div class="red-line-long">
-                  <div class="circle"></div>
-                </div>
-              </div>
-
-              <div class="bus-station">모현사거리</div>
-
-              <div class="column">
-                <div class="red-line-long">
-                  <div class="circle"></div>
-                </div>
-              </div>
-            </div>
-
-                        <div class="bus-updiv-style" style="text-align:start;">
-                            {% for value in upList.3 %}
-                            <div style="display: flex; display:inline-block">
-                                <span class="bus-div-style">
-                                  <img src="/static/bus.svg" class="bus-img">
-                                    {{ value }}</span>
-                            </div>
-                            {% endfor %}
-                        </div>
-
+                        {% endfor %}
                     </div>
 
-          <!--다섯번째 단락(외대사거리 부분)-->
-
-                    <div class="div_center_red_station_red" id="big DIV5">
-
-                        <div class="bus-updiv-style" style="text-align:end;">
-                            {% for value in downList.3 %}
-                            <div style="display: flex; display:inline-block">
-                                <span class="bus-div-style">
-                                  <img src="/static/bus.svg" class="bus-img">
-                                    {{ value }}</span>
-                            </div>
-                            {% endfor %}
-                        </div>
-
-            <div style="display: flex">
-              <div class="column">
-                <div class="red-line-long">
-                  <div class="circle"></div>
                 </div>
-              </div>
 
-              <div class="bus-station">외대사거리</div>
+                <!--다섯번째 단락(외대사거리 부분)-->
 
-              <div class="column">
-                <div class="red-line-long">
-                  <div class="circle"></div>
-                </div>
-              </div>
-            </div>
+                <div class="div_center_red_station_red" id="big DIV5">
 
-                        <div class="bus-updiv-style" style="text-align:start;">
-                            {% for value in upList.4 %}
-                            <div style="display: flex; display:inline-block">
-                                <span class="bus-div-style">
-                                  <img src="/static/bus.svg" class="bus-img">
-                                    {{ value }}</span>
-                            </div>
-                            {% endfor %}
+                    <div class="bus-updiv-style" style="text-align:end;">
+                        {% for value in downList.3 %}
+                        <div style="display: flex; display:inline-block">
+                            <span class="bus-div-style">
+                                <img src="/static/bus.svg" class="bus-img">
+                                {{ value }}</span>
                         </div>
-
+                        {% endfor %}
                     </div>
-                    <!--여기까지 bid DIV-->
-                <div class="rectangle column" 
-                style="width: 250px; height:auto; border:3px solid #3c486b; display:flex;">
-                  <h3> 상행 버스 남은 시간</h3>
-                  {% for bus, info in upInfo.items %}
-                  <p>{{bus}} | {{info.location}}번째 전 ({{info.predict_time}}분)</p>
-                  {% endfor %}
+
+                    <div style="display: flex">
+                        <div class="column">
+                            <div class="red-line-long">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+
+                        <div class="bus-station">외대사거리</div>
+
+                        <div class="column">
+                            <div class="red-line-long">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bus-updiv-style" style="text-align:start;">
+                        {% for value in upList.4 %}
+                        <div style="display: flex; display:inline-block">
+                            <span class="bus-div-style">
+                                <img src="/static/bus.svg" class="bus-img">
+                                {{ value }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+
                 </div>
+                <!--여기까지 bid DIV-->
+                <div class="rectangle column" style="width: 250px; height:auto; border:3px solid #3c486b; display:flex;">
+                    <h3> 상행 버스 남은 시간</h3>
+                    {% for bus, info in upInfo.items %}
+                    <p>{{bus}} | {{info.location}}번째 전 ({{info.predict_time}}분)</p>
+                    {% endfor %}
                 </div>
-                
-                <footer id="ad-banner">
-                  <ins class="kakao_ad_area" style="display:none;"
-                  data-ad-unit = "DAN-rYJl5HkrmqcIwyyr"
-                  data-ad-width = "320"
-                  data-ad-height = "100"></ins>
-                  <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
-                </footer>
             </div>
+
+            <footer id="ad-banner">
+                <ins class="kakao_ad_area" style="display:none;" data-ad-unit="DAN-rYJl5HkrmqcIwyyr" data-ad-width="320" data-ad-height="100"></ins>
+                <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+            </footer>
         </div>
+    </div>
 
 </body>
 
