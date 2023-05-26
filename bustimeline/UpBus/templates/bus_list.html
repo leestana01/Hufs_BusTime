@@ -187,7 +187,14 @@
             <div style="display:flex;">
 
                 <div class="red-line-long"></div>
-                <div class="bus-station"></div>
+                <div class="bus-station">
+                    {% if not busExist %}
+                    <div class="rectangle" style="border:3px solid blue; width: 100px; margin-top: 20px;">
+                        <h4 style="color:blue; font-weight: bold;"> 지금은 버스가<br/>없나봐요 😥</h4>
+                    </div>
+                        
+                    {% endif %}
+                </div>
                 <div class="red-line-long"></div>
 
             </div>

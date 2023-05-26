@@ -44,12 +44,26 @@ def bus_list(request):
     print('정렬된 남은 버스 시간표')
     print(upInfo)
 
+    
+    
+
     context = {
         'bus_numbers': bus_numbers,
         'bus_stops': bus_stops,
         'downList' : downList1,
         'upList' : upList,
+        'downListExist' : listChk(downList1),
+        'upListExist' : listChk(upList),
+        'busExist' : (listChk(downList1) and listChk(upList)),
         'upInfo' : upInfo,
     }
 
     return render(request, 'bus_list.html', context)
+
+def listChk(chkList):
+    listExist = 0
+    for list in chkList:
+        if list:
+            listExist = 1
+            break
+    return listExist
