@@ -40,7 +40,7 @@ def bus_list(request):
     print('상행버스-정류장 리스트화')
     print(upList)
 
-    upInfo = sorted(bus_locations_info.items(), key=lambda x: x[1]['predict_time'])
+    upInfo = sorted(bus_locations_info.items(), key=lambda x: int(x[1]['predict_time']))
     print('정렬된 남은 버스 시간표')
     print(upInfo)
 
@@ -54,7 +54,7 @@ def bus_list(request):
         'upList' : upList,
         'downListExist' : listChk(downList1),
         'upListExist' : listChk(upList),
-        'busExist' : (listChk(downList1) and listChk(upList)),
+        'busExist' : (listChk(downList1) or listChk(upList)),
         'upInfo' : upInfo,
     }
 
